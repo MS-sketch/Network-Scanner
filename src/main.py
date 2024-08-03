@@ -1,158 +1,143 @@
-###############################################################
-### Python Framework for VAPT with Nikto v 1.0 	    		###
-### 														###
-### Designed by Niraj M. 			     					###
-### niraj007m[at]gmail[dot]com        						###
-### This work is licensed under the Creative Commons        ###
-### Attribution-ShareAlike 3.0 Unported License.            ###
-### To view a copy of this license, visit                   ###
-### http://creativecommons.org/licenses/by-sa/3.0/ or send a###
-### letter to Creative Commons, PO Box 1866, Mountain View, ###
-### CA 94042, USA. 											###
-###############################################################
-
-from tkinter import *
-import
-import socket
-from datetime import datetime
-import subprocess
-import tkMessageBox
+import sys
+from functools import partial
+from PySide6.QtCore import Qt, QSize
+from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QPushButton, QWidget, QScrollArea, \
+    QGraphicsDropShadowEffect, QStyle
+from PySide6.QtGui import QColor, QPalette
+from Custom_Widgets.QCustomModals import QCustomModals
 
 
-class Scanning_port:
+class TestModalWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
 
-    def __init__(self, master):
-        master.title('Infosecplatform Presents nikto with python PFv1.0')
-        master.resizable(False, False)
-        master.configure(background="#e1d8b9")
+        self.setWindowTitle("Test Modal Window")
 
-        self.style = ttk.Style()
-        self.style.configure('TFrame', background="#e1d8b9")
-        self.style.configure('TButton', background="#e1d8b9")
-        self.style.configure('TLabel', background="#e1d8b9")
-        self.style.configure('TSeparator', background="#e1d8b9")
-        self.style.configure('Header.TLabel', font=('Arial', 18, 'bold'))
+        self.central_widget = QWidget(self)
+        self.setCentralWidget(self.central_widget)
 
-        ## Frame 1 ##
-        self.frame_header = ttk.Frame(master)
-        self.frame_header.pack()
+        self.layout = QVBoxLayout(self.central_widget)
+        self.layout.setAlignment(Qt.AlignTop)
 
-        ttk.Label(self.frame_header, text="Nikto with Python Framework v 1.0", style='Header.TLabel').grid(row=0,
-                                                                                                           column=1,
-                                                                                                           padx=5,
-                                                                                                           pady=5,
-                                                                                                           sticky='sw')
-        ttk.Label(self.frame_header, wraplength=295, text="Nikto Scanning tool (cmd:Nikto -h target)").grid(row=1,
-                                                                                                            column=1,
-                                                                                                            padx=5,
-                                                                                                            sticky='sw')
-        ttk.Label(self.frame_header, wraplength=295,
-                  text="(Make sure, nikto is already installed on your machine)").grid(row=2, column=1, padx=5, pady=5,
-                                                                                       sticky='sw')
-        ttk.Separator(self.frame_header, orient=HORIZONTAL).grid(row=3, columnspan=5, sticky="ew", padx=5, pady=10)
-        ## END ##
-        ## Frame 2 ##
+        self.scroll_area = QScrollArea(self.central_widget)
+        self.scroll_area.setWidgetResizable(True)
+        self.central_widget.setLayout(QVBoxLayout())
+        self.central_widget.layout().addWidget(self.scroll_area)
 
-        self.frame_content = ttk.Frame(master)
-        self.frame_content.config(height=200, width=400)
-        # self.frame_content.config(relief = GROOVE)
-        self.frame_content.pack()
+        self.scroll_area_widget = QWidget()
+        self.scroll_area.setWidget(self.scroll_area_widget)
 
-        ttk.Label(self.frame_content, text="Enter Target URL Address: ").grid(row=2, column=0, padx=5, pady=10)
+        self.scroll_layout = QVBoxLayout(self.scroll_area_widget)
+        self.scroll_layout.setAlignment(Qt.AlignTop)
 
-        self.entry_name = ttk.Entry(self.frame_content, textvariable="server")
-        self.entry_name.setvar(name="server", value="127.0.0.1")
-        self.entry_name.grid(row=3, column=0, padx=5)
+        self.create_buttons()
 
-        ttk.Button(self.frame_content, text="Scan", command=self.dscan).grid(row=3, column=1, padx=5, pady=10,
-                                                                             sticky='se')
-        ttk.Button(self.frame_content, text="Clear", command=self.Clear).grid(row=3, column=2, padx=5, pady=10,
-                                                                              sticky='se')
+    def create_buttons(self):
+        modal_types = ["Information", "Success", "Warning", "Error", "Custom"]
+        positions = ["top-left", "top-center", "top-right", "center-left", "center-center",
+                     "center-right", "bottom-left", "bottom-center", "bottom-right"]
 
-        ## END ##
-        ## Frame 3 ##
+        for modal_type in modal_types:
+            for position in positions:
+                button = QPushButton(f"{modal_type} Modal ({position})")
+                button.setObjectName(f"{modal_type.lower()}_{position.replace('-', '_')}_button")
+                button.setStyleSheet(f"background-color: {self.get_button_color(modal_type)}")
+                button.clicked.connect(partial(self.show_modal, modal_type, position))
+                self.scroll_layout.addWidget(button)
 
-        self.frame_report = ttk.Frame(master)
-        self.frame_content.config(height=400, width=400)
-        self.frame_report.pack()
+    def get_button_color(self, modal_type):
+        if self.isDark():
+            color_map = {
+                "Information": "#2799be",  # dark blue or teal
+                "Success": "#29b328",  # dark green
+                "Warning": "#bb8128",  # dark yellow
+                "Error": "#bb221d",  # dark red or pink
+                "Custom": "#0E1115"  #
+            }
 
-        self.txt = Text(self.frame_report, width=60, height=15)
-        self.txt.grid(row=4, column=0, sticky=W, padx=5, pady=5)
-        self.txt.insert(0.0, 'Nikto Scanning Report will appear here...')
+        else:
+            color_map = {
+                "Information": "#E6F7FF",  # light blue or teal
+                "Success": "#C8E6C9",  # light green
+                "Warning": "#FFF9E1",  # light yellow
+                "Error": "#FFEBEE",  # light red or pink
+                "Custom": "#FFFFFF"  #
+            }
+        return color_map.get(modal_type, "#FFFFFF")  # Default to white
 
-    def dscan(self):
-        self.txt.delete(0.0, END)
-        subprocess.call('clear', shell=True)
-        t1 = datetime.now()
-        remoteServer = self.entry_name.get()
-        remoteServerIP = socket.gethostbyname(remoteServer)
-        nik = subprocess.Popen(["nikto +host http://" + remoteServerIP], stdout=subprocess.PIPE, shell=True)
-        (output, error) = nik.communicate()
-        # output = nik.communicate()
-        msg1 = str(output)
-        self.txt.insert(0.0, msg1)
-        t2 = datetime.now()
-        total = t2 - t1
-        print
-        "Scanning Completed in: ", total
-        tkMessageBox.showinfo(title="Report Status!", message="Scaning Process Completed ")
+    def show_modal(self, modal_type, position):
+        kwargs = {
+            "title": f"{modal_type} Title",
+            "description": f"This is a {modal_type.lower()} modal in position: {position}",
+            "position": position,
+            "parent": self,
+            "animationDuration": 3000  # set to zero if you want you modal to not auto-close
+        }
 
-    def Clear(self):
-        self.entry_name.delete(0, 'end')
-        self.txt.delete(0.0, 'end')
+        if modal_type == "Information":
+            modal = QCustomModals.InformationModal(**kwargs)
+        elif modal_type == "Success":
+            modal = QCustomModals.SuccessModal(**kwargs)
+        elif modal_type == "Warning":
+            modal = QCustomModals.WarningModal(**kwargs)
+        elif modal_type == "Error":
+            modal = QCustomModals.ErrorModal(**kwargs)
+        elif modal_type == "Custom":
+            kwargs["modalIcon"] = self.style().standardIcon(QStyle.SP_MessageBoxQuestion).pixmap(
+                QSize(32, 32))  # Change QSystemIcon.Warning to any desired system icon
+            kwargs["description"] += "\n\nCustom modals need additional styling since they are transparent by default."
+            modal = QCustomModals.CustomModal(**kwargs)
+
+        # Apply CSS styling to the main window or modal parent to avoid painting over default modal style
+        # set dynamic bg & icons color for custom modal to match app theme
+        if self.isDark():
+            bg_color = "#0E1115"
+            icons_color = "#F5F5F5"  # white
+        else:
+            bg_color = "#F0F0F0"
+            icons_color = "#000"  # black
+        self.setStyleSheet("""
+            InformationModal, SuccessModal, ErrorModal, WarningModal, CustomModal{
+                border-radius: 10px;
+            }
+            CustomModal{
+                background-color: """ + bg_color + """; /* Light gray background color */
+                color: """ + icons_color + """
+            }
+            CustomModal *{
+                background-color: transparent;
+            }
+        """)
+
+        # Apply QGraphicsDropShadowEffect to create a shadow effect
+        shadow_effect = QGraphicsDropShadowEffect(modal)
+        shadow_effect.setBlurRadius(10)
+        shadow_effect.setColor(QColor(0, 0, 0, 150))
+        shadow_effect.setOffset(0, 0)
+        modal.setGraphicsEffect(shadow_effect)
+
+        modal.show()
+
+    def isDark(self):
+        palette = self.palette()
+        background_color = palette.color(QPalette.Window)
+        # Calculate the luminance of the background color
+        luminance = 0.2126 * background_color.red() + 0.7152 * background_color.green() + 0.0722 * background_color.blue()
+
+        # Determine if the background color is dark or light
+        if luminance < 128:
+            # Dark background
+            return True
+        else:
+            # Light background
+            return False
 
 
-def main():
-    root = Tk()
-    scan = Scanning_port(root)
-    menubar = Menu(root, background="#e1d8b9")
-    filemenu = Menu(menubar, tearoff=0, background="#e1d8b9")
-    filemenu.add_command(label="Scan", command=scan.dscan)
-    filemenu.add_command(label="Clear", command=scan.Clear)
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
 
-    filemenu.add_separator()
+    window = TestModalWindow()
+    window.resize(800, 600)
+    window.show()
 
-    filemenu.add_command(label="Exit", command=root.quit)
-    menubar.add_cascade(label="File", menu=filemenu, background="#e1d8b9")
-
-    helpmenu = Menu(menubar, tearoff=0, background="#e1d8b9")
-    helpmenu.add_command(label="Help", command=index0)
-    helpmenu.add_command(label="About...", command=index)
-    menubar.add_cascade(label="Help", menu=helpmenu)
-
-    root.config(menu=menubar, background="#e1d8b9")
-    root.mainloop()
-
-
-
-
-def index0():
-    filewin1 = Toplevel()
-    labelframe = LabelFrame(filewin1, text="Help", background="#e1d8b9")
-    labelframe.pack(fill="both", expand="yes")
-
-    left1 = Label(labelframe, background="#e1d8b9",
-                  text="Infosecplatform presents Python Framework with Nikto v 1.0\n", font="Verdana 10 bold").pack()
-    left2 = Label(labelframe, background="#e1d8b9",
-                  text="What is Nikto with Python Framework v 1.0 ?", font="Verdana 10 bold").pack()
-    left3 = Label(labelframe, background="#e1d8b9",
-                  text="niktopy Provides:").pack()
-    left4 = Label(labelframe, background="#e1d8b9",
-                  text="Simply GUI - Python based Tool used for").pack()
-    left5 = Label(labelframe, background="#e1d8b9", text="Nikto scanning.").pack()
-    filewin1.mainloop()
-
-
-if __name__ == "__main__": main()
-###############################################################
-### Python Framework for VAPT with Nikto v 1.0 	    		###
-### 														###
-### Designed by Niraj M. 			     					###
-### niraj007m[at]gmail[dot]com        						###
-### This work is licensed under the Creative Commons        ###
-### Attribution-ShareAlike 3.0 Unported License.            ###
-### To view a copy of this license, visit                   ###
-### http://creativecommons.org/licenses/by-sa/3.0/ or send a###
-### letter to Creative Commons, PO Box 1866, Mountain View, ###
-### CA 94042, USA. 											###
-###############################################################
+    sys.exit(app.exec())
