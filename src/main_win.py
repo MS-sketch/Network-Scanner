@@ -7,6 +7,7 @@ from PyQt6.QtWidgets import *
 
 import network_scanner as ns
 from main_win_ui import Ui_MainWindow
+from config_diag import MainWindow_Config
 
 
 # Rotating Circle Progress Bar
@@ -64,8 +65,12 @@ class MainWindow:
         self.main_win = QMainWindow()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self.main_win)
+
         # Define important global variables
         self.web_address = None
+
+        # Define External Dialog
+        self.config_window = MainWindow_Config()
 
         # Progress Bar
         self.progress_bar = RotatingCircleProgressBar(self.ui.frame_12)
@@ -81,6 +86,7 @@ class MainWindow:
         # Connect slots to buttons
         self.ui.startScan_btn.clicked.connect(self.start_scan)
         self.ui.clearWebAddress_btn.clicked.connect(self.clear_webAddress)
+        self.ui.configSettings_btn.clicked.connect(self.openConfigWin)
 
         # Rename Elements
         self.main_win.setWindowTitle("Network Scanner")
@@ -105,6 +111,9 @@ class MainWindow:
         self.disable_btn(False)
         self.ui.configSettings_btn.setDisabled(False)
         self.ui.outputScanResult_textedit.setHtml(response)
+
+    def openConfigWin(self):
+        self.config_window.show()
 
     def time(self):
         now = datetime.now()
