@@ -1,5 +1,7 @@
 import requests
-
+import google.generativeai as palm
+import configparser
+import translation_module as translate
 
 def check_security_headers(url):
     headers = {
@@ -56,3 +58,20 @@ def check_security_headers(url):
 
     except requests.exceptions.RequestException as e:
         return f"Error: {e}"
+
+def produce_summary(outputData):
+    # Read the API key from the config.ini file
+    config = configparser.ConfigParser()
+    config.read('config.ini')
+    api_key = config.get('API', 'gemini_api_key')
+
+    # Set up the PaLM API key
+    palm.configure(api_key=api_key)
+
+    model = palm.GenerativeModel('gemini-1.5-flash')
+    response = model.generate_content(outputData + "\n Give a summary of these details & also provide some general fixes")
+
+    html_formatted_text = translate.convert_text_to_html(response.text)
+
+    return html_formatted_text
+
