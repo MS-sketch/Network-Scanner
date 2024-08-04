@@ -43,6 +43,10 @@ class MainWindow_Config:
             config['API'] = {
                 'gemini_api_key': apikey
             }
+            with open(r"config.ini", 'w') as config_file_obj:
+                config.write(config_file_obj)
+                config.flush()
+                config.close()
 
             self.close()
 
