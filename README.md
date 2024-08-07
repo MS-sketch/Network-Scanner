@@ -53,3 +53,5 @@ The Application has a simple UI consisting of the following buttons with their c
 ## License
 This project is licensed under the GNU Public License Version 3.
 
+## Contact
+To make any requests regarding this project please contact sarkar.mainakh@rediffmail.com
