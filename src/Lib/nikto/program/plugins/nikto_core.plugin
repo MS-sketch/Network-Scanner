@@ -841,12 +841,12 @@ sub general_config {
     }
 
     if ((defined $CLI{'file'}) && ($CLI{'format'} eq "")) {
-        nprint("+ ERROR: Output file specified without a format");
+        nprint("+ERROR: Output file specified without a format");
         exit 1;
     }
 
     if ((!defined $CLI{'file'}) && ($CLI{'format'} ne "none")) {
-        nprint("+ ERROR: Output file format specified without a name");
+        nprint("+ERROR: Output file format specified without a name");
         exit 1;
     }
 
@@ -939,9 +939,9 @@ sub general_config {
     # SSL Test
     if (!LW2::ssl_is_available()) {
         nprint("- ***** TLS/SSL support not available (see docs for SSL install) *****");
-        if ($CLI{'ssl'} || ($CLI{'host'} =~ /^https/i)) {
+        if ($CLI{'ssl'}) {
             nprint("- ERROR: -ssl was specified but TLS/SSL is not available.");
-            exit 1;
+            exit;
         }
     }
 
@@ -1013,7 +1013,7 @@ sub safe_quit {
     report_summary($mark);
     report_close($mark);
     $NIKTO{'POSIX'}{'term'}->setlflag($NIKTO{'POSIX'}{'oterm'}) if ($^O !~ /MSWin32/);
-    exit 1;
+    exit(1);
 }
 
 ###############################################################################
@@ -1125,7 +1125,7 @@ sub resolve {
     {
         if ($CLI{'skiplookup'}) {
             nprint("+ ERROR: -nolookup set, but given name\n");
-            exit 1;
+            exit;
         }
 
         if ($LW2::LW2_CAN_IPv6) {    # IPv4/v6 resolve
@@ -1183,7 +1183,7 @@ sub resolve {
                     "+ ERROR: IPv4 scanning mode requested but only IPv6 addresses found ($ipcache)"
                     );
             }
-            exit 1;
+            exit;
         }
 
         if ($ipcache != "") {
@@ -1194,7 +1194,7 @@ sub resolve {
             && $ip !~ /^$LW2::IPv6_re$/) {
             nprint("+ ERROR: Invalid IP: $ip\n\n",
                    "", ($mark->{'hostname'}, $mark->{'ip'}, $mark->{'displayname'}));
-            exit 1;
+            exit;
         }
 
         $name = $ident;
@@ -1761,7 +1761,7 @@ sub check_dbs {
     foreach my $id (keys %ALL_IDS) {
         chomp($id);
         next if (($id eq 0) || ($id eq '') || ($id eq 'nikto_id'));
-        if ($id =~ /[^\d]/)  { nprint("+ ERROR: Invalid test ID: $id"); next; }
+        if ($id =~ /[^\d]/)  { nprint("+ERROR: Invalid test ID: $id"); next; }
         if (length($id) < 6) { nprint("+WARNING: Possibly invalid test ID: $id"); }
     }
 
@@ -2556,7 +2556,6 @@ sub nfetch {
             ($mark->{'hostname'}, $mark->{'ip'}, $mark->{'displayname'})
             );
         $mark->{'terminate'} = 1;
-        status_report();
     }
 
     if ($OUTPUT{'debug'}) {
@@ -2843,7 +2842,7 @@ sub version {
     # Check dependencies
     check_modules();
 
-    exit 0;
+    exit;
 }
 
 #######################################################################
@@ -2938,6 +2937,8 @@ sub send_updates {
 
 #######################################################################
 sub usage {
+    my $is_failure = shift;
+
     print "
    Options:
        -ask+               Whether to ask about submitting updates
@@ -3037,7 +3038,7 @@ sub usage {
 
     check_modules();
 
-    exit 0;
+    exit $is_failure;
 }
 
 #######################################################################
@@ -3188,7 +3189,7 @@ sub list_plugins {
         }
     }
 
-    exit 0;
+    exit(0);
 }
 
 ###############################################################################

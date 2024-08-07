@@ -4,7 +4,7 @@ nikto
 [![alt text](https://cirt.net/images/patreon.png "Become a patron of Nikto!")](https://www.patreon.com/sullo)
 
 
-Nikto web server scanner  - https://cirt.net/Nikto2 
+Nikto web server scanner  - https://cirt.net/Nikto2
 
 Full documentation - https://github.com/sullo/nikto/wiki
 
@@ -55,7 +55,6 @@ Basic usage:
                                S     Scrub output of IPs and hostnames
                                V     Verbose output
        -dbcheck           Check database and other key files for syntax errors
-       -followredirects   Follow 3xx redirects to new location
        -evasion+          Encoding technique:
                                1     Random URI encoding (non-UTF8)
                                2     Directory self-reference (/./)
@@ -92,7 +91,6 @@ Basic usage:
        -mutate-options    Provide information for mutates
        -nointeractive     Disables interactive features
        -nolookup          Disables DNS lookups
-       -noslash           Strip trailing slash from URL (e.g., '/admin/' to '/admin')
        -nossl             Disables the use of SSL
        -no404             Disables nikto attempting to guess a 404 page
        -output+           Write output to this file ('.' for auto-name)
@@ -125,7 +123,6 @@ Basic usage:
        -until             Run until the specified time or duration
        -update            Update databases and plugins from CIRT.net
        -useproxy          Use the proxy defined in nikto.conf
-       -usecookies        Use cookies from responses in future requests
        -Version           Print plugin and database versions
        -vhost+            Virtual host (for Host header)
               + requires a value

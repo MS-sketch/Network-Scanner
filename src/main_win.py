@@ -8,6 +8,7 @@ from PyQt6.QtWidgets import *
 import network_scanner as ns
 from main_win_ui import Ui_MainWindow
 from config_diag import MainWindow_Config
+import chatbot_manager as cm
 
 
 # Rotating Circle Progress Bar
@@ -37,6 +38,18 @@ class RotatingCircleProgressBar(QWidget):
         painter.setPen(pen)
         painter.drawArc(rect.adjusted(10, 10, -10, -10), 0 * 16, 270 * 16)
 
+# Create Response Worker Thread
+class ChatbotWorker(QThread):
+    prompt_completed = pyqtSignal(str, str)
+
+    def __init__(self, prompt):
+        super().__init__()
+        self.prompt = prompt
+
+    def run(self):
+        # Generate the chatbot response
+        output = cm.create_chatbot(self.prompt)
+        self.prompt_completed.emit(self.prompt, output)
 
 # Scan Worker Thread
 class ScanWorker(QThread):
@@ -74,19 +87,29 @@ class MainWindow:
 
         # Progress Bar
         self.progress_bar = RotatingCircleProgressBar(self.ui.frame_12)
-        self.progress_bar.setGeometry(120, 0, 50, 50)  # Adjust size and position as needed
+        self.progress_bar.setGeometry(720, 0, 50, 50)  # Adjust size and position as needed
         self.progress_bar.hide()
+
+        # Progress Bar 2
+        self.progress_bar2 = RotatingCircleProgressBar(self.ui.send_frame)
+        self.progress_bar2.setGeometry(0, 0, 30, 30)  # Adjust size and position as needed
+        self.progress_bar2.hide()
 
         # Config
         self.ui.outputScanResult_textedit.setReadOnly(True)
         self.time()
         self.ui.website_address_inputbox.textChanged.connect(self.check_integrity)
         self.disable_btn(True)
+        self.ui.sendButton.setDisabled(True)
+        self.ui.messageInput.textChanged.connect(self.check_prompt_integrity)
 
         # Connect slots to buttons
         self.ui.startScan_btn.clicked.connect(self.start_scan)
         self.ui.clearWebAddress_btn.clicked.connect(self.clear_webAddress)
         self.ui.configSettings_btn.clicked.connect(self.openConfigWin)
+        self.ui.pushButton.clicked.connect(self.open_chatbot)
+        self.ui.back_to_home.clicked.connect(self.close_chatbot)
+        self.ui.sendButton.clicked.connect(self.start_chatbot_thread)
 
         # Rename Elements
         self.main_win.setWindowTitle("Network Scanner")
@@ -115,6 +138,34 @@ class MainWindow:
     def openConfigWin(self):
         self.config_window.show()
 
+    def check_prompt_integrity(self):
+        prompt = self.ui.messageInput.text()
+
+        if prompt.strip() != "":
+            self.ui.sendButton.setEnabled(True)
+
+        if prompt.strip() == "":
+            self.ui.sendButton.setDisabled(True)
+
+    def start_chatbot_thread(self):
+        # Get the prompt text and start the chatbot worker
+        prompt = self.ui.messageInput.text()
+        self.ui.chatDisplay.addItem("You: \n" + prompt)
+
+        # Initialize and start the chatbot worker
+        self.ui.sendButton.hide()
+        self.progress_bar2.show()
+
+        self.chatbot_worker = ChatbotWorker(prompt)
+        self.chatbot_worker.prompt_completed.connect(self.on_prompt_complete)
+        self.chatbot_worker.start()
+
+    def on_prompt_complete(self, prompt, output):
+        # Display the AI's response in the chat display
+        self.ui.sendButton.show()
+        self.progress_bar2.hide()
+        self.ui.chatDisplay.addItem(f"AI: \n{output}")
+
     def time(self):
         now = datetime.now()
         integer_date = int(now.strftime("%H%M%S"))
@@ -130,6 +181,14 @@ class MainWindow:
         # Enable or disable buttons based on the condition
         self.ui.startScan_btn.setDisabled(condition)
         self.ui.clearWebAddress_btn.setDisabled(condition)
+
+    def open_chatbot(self):
+        self.ui.mainwindow_stackWidget.setCurrentIndex(1)
+
+    def close_chatbot(self):
+        self.ui.mainwindow_stackWidget.setCurrentIndex(0)
+        self.ui.messageInput.setText("")
+        self.ui.chatDisplay.clear()
 
     def check_integrity(self):
         webAddress = self.ui.website_address_inputbox.text()

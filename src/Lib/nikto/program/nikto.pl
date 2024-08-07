@@ -78,6 +78,8 @@ if ($CLI{'host'} eq '') {
 $COUNTERS{'total_targets'} = $COUNTERS{'hosts_completed'} = 0;
 load_plugins();
 
+my $is_failure = 0;
+
 # Parse the supplied list of targets
 my @MARKS = set_targets($CLI{'host'}, $CLI{'ports'}, $CLI{'ssl'}, $CLI{'root'});
 
@@ -151,13 +153,8 @@ foreach my $mark (@MARKS) {
 # Now we've done the precursor, do the scan
 foreach my $mark (@MARKS) {
     my %FoF = ();
-    report_host_start($mark);
 
     if (!$mark->{'test'}) {
-        if ($mark->{'errmsg'} ne "") {
-            add_vulnerability($mark, $mark->{'errmsg'}, 0, "", "GET", "/", "", "");
-        }
-
         report_host_end($mark);
         next;
     }
@@ -178,11 +175,20 @@ foreach my $mark (@MARKS) {
 
     nfetch($mark, "/", "GET", "", "", { noprefetch => 1, nopostfetch => 1 }, "getinfo");
 
+    report_host_start($mark);
+
+    if ($mark->{'errmsg'} ne "") {
+        add_vulnerability($mark, $mark->{'errmsg'}, 0, "", "GET", "/", "", "");
+    }
 
     dump_target_info($mark);
     unless ((defined $CLI{'nofof'}) || ($CLI{'plugins'} eq '@@NONE')) { map_codes($mark) }
     run_hooks($mark, "recon");
     run_hooks($mark, "scan");
+
+    if ($mark->{'total_errors'} > 0 || $mark->{'total_vulns'} > 0) {
+        $is_failure = 1;
+    }
 
     $mark->{'end_time'} = time();
     $mark->{'elapsed'}  = $mark->{'end_time'} - $mark->{'start_time'};
@@ -217,7 +223,7 @@ send_updates(@MARKS);
 
 nprint("T:" . localtime() . ": Ending", "d");
 
-exit 0;
+exit $is_failure;
 
 #################################################################################
 # Load config files in order

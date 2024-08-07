@@ -2,6 +2,8 @@ import requests
 import google.generativeai as palm
 import configparser
 import translation_module as translate
+import os
+import subprocess
 
 def check_security_headers(url):
     headers = {
@@ -75,3 +77,38 @@ def produce_summary(outputData):
 
     return html_formatted_text
 
+def get_cwd():
+    current_directory = os.getcwd()
+    return current_directory
+
+def run_nikto_scan(url):
+    cwd = get_cwd()
+    # Path to the nikto.pl file (adjust this to the correct path)
+    nikto_path = cwd+"\\Lib\\nikto\\program\\nikto.pl"
+
+    # PowerShell command to run Nikto scan
+    ps_command = f'powershell -NoProfile -ExecutionPolicy Bypass -Command "& \'{nikto_path}\' -host {url}"'
+
+    # Run the command without showing a console window
+    process = subprocess.Popen(
+        ps_command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        stdin=subprocess.PIPE,
+        shell=True,
+        creationflags=subprocess.CREATE_NO_WINDOW
+    )
+
+    # Get the output and error
+    output, error = process.communicate()
+
+    # Decode the output and error
+    output = output.decode('utf-8', errors='ignore')
+    error = error.decode('utf-8', errors='ignore')
+
+    if output:
+        print("Nikto Scan Output:")
+        print(output)
+    if error:
+        print("Nikto Scan Errors:")
+        print(error)
