@@ -40,7 +40,7 @@ cloud and then creating the API Key.
 
 ```bash
 cd your-project-directory
-python main.py
+python main_win.py
 ```
 
 ## Usage
