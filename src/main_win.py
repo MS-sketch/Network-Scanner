@@ -9,6 +9,7 @@ import configparser
 import network_scanner as ns
 from main_win_ui import Ui_MainWindow
 import chatbot_manager as cm
+import webbrowser
 
 
 # Rotating Circle Progress Bar
@@ -45,11 +46,21 @@ class ChatbotWorker(QThread):
     def __init__(self, prompt):
         super().__init__()
         self.prompt = prompt
+        self.api3 = None
 
     def run(self):
         # Generate the chatbot response
-        output = cm.create_chatbot(self.prompt)
+        self.read_config()
+        output = cm.create_chatbot(self.prompt, self.api3)
         self.prompt_completed.emit(self.prompt, output)
+
+    def read_config(self):
+        config = configparser.ConfigParser()
+
+        config.read('config.ini')
+
+        # Preserve existing values
+        self.api3 = config.get('API', 'gemini_api_key', fallback="")
 
 # Scan Worker Thread
 class ScanWorker(QThread):
@@ -58,32 +69,39 @@ class ScanWorker(QThread):
     def __init__(self, web_address):
         super().__init__()
         self.web_address = web_address
+        self.api2 = None
+        self.scan_type2 = None
 
     def run(self):
         # Perform security headers check
         output = None
 
-        scan_type = self.get_scan_type()
+        self.read_config()
 
-        if scan_type == 'nmap':
-            pass
-        elif scan_type == 'header_scan':
+        if self.scan_type2 == 'nmap':
+            output = ns.run_nmap_scan(self.web_address)
+
+        elif self.scan_type2 == 'header_scan':
             output = ns.check_security_headers(self.web_address)
-        elif scan_type == 'nikto':
-            pass
+        elif self.scan_type2 == 'nikto':
+            output = ns.run_nikto_scan(self.web_address)
 
-        response = ns.produce_summary(output)
+        response = ns.produce_summary(output, self.api2)
 
         if response.strip() == "":
             self.scan_completed.emit("An Error Occurred!.")
         else:
             self.scan_completed.emit(response)
 
-    def get_scan_type(self):
+    def read_config(self):
         config = configparser.ConfigParser()
+
         config.read('config.ini')
-        scan = config.get('SCAN', 'scan_type')
-        return scan
+
+        # Preserve existing values
+        self.api2 = config.get('API', 'gemini_api_key', fallback="")
+        self.scan_type2 = config.get('API', 'scan_type', fallback="")
+
 
 # Main Window Class
 class MainWindow:
@@ -102,6 +120,10 @@ class MainWindow:
         self.progress_bar = RotatingCircleProgressBar(self.ui.stackedWidget_4)
         self.progress_bar.setGeometry(720, 0, 50, 50)  # Adjust size and position as needed
         self.progress_bar.hide()
+        # Progress Bar 2 (Chatbot)
+        self.progress_bar2 = RotatingCircleProgressBar(self.ui.frame_7)
+        self.progress_bar2.setGeometry(720, 0, 50, 50)  # Adjust size and position as needed
+        self.progress_bar2.hide()
 
         # Config
         self.ui.outputScanResult_textedit.setReadOnly(True)
@@ -123,9 +145,11 @@ class MainWindow:
 
         self.ui.ok_btn.clicked.connect(self.scan_option)
 
+        self.ui.instructions_btn.clicked.connect(self.open_url)
+
         # FIX
-        """self.ui.pushButton.clicked.connect(self.open_chatbot)
-        self.ui.sendButton.clicked.connect(self.start_chatbot_thread)"""
+        self.ui.SendButton_2.clicked.connect(self.start_chatbot_thread)
+
         self.ui.api_btn.clicked.connect(self.write_ini)
 
         # MENU ITEMS
@@ -155,6 +179,7 @@ class MainWindow:
         self.ui.scan_btn_2.setChecked(True)
 
         self.read_config()
+        self.set_scan_option()
 
     # SCAN RELATED
     def open_scan(self):
@@ -176,6 +201,7 @@ class MainWindow:
             self.scan_type = 'nikto'
 
         self.write_config()
+        self.open_scan()
 
     def start_scan(self):
         # Start the scan process with the given web address
@@ -192,6 +218,10 @@ class MainWindow:
         self.worker.scan_completed.connect(self.on_scan_complete)
         self.worker.start()
 
+    def open_url(self):
+        url = "https://github.com/MS-sketch/Network-Scanner"
+        webbrowser.open_new(url)
+
     def on_scan_complete(self, response):
         # Hide progress bar, re-enable buttons, and display scan result
         self.progress_bar.hide()
@@ -203,6 +233,16 @@ class MainWindow:
     # SCAN TYPE
     def open_settings(self):
         self.ui.stackedWidget_2.setCurrentIndex(2)
+
+    def set_scan_option(self):
+        if self.scan_type == 'nmap':
+            self.ui.nmap_rad.setChecked(True)
+
+        if self.scan_type == 'header_scan':
+            self.ui.header_scan_rad.setChecked(True)
+
+        if self.scan_type == 'nikto':
+            self.ui.nikto_rad.setChecked(True)
 
     # API RELATED (FINISHED, NT)
 
@@ -259,22 +299,23 @@ class MainWindow:
 
     def start_chatbot_thread(self):
         # Get the prompt text and start the chatbot worker
-        prompt = self.ui.messageInput.text()
-        self.ui.chatDisplay.addItem("You: \n" + prompt)
+        prompt = self.ui.MessageInput_2.text()
+        self.ui.output_window.addItem("You: \n" + prompt)
 
         # Initialize and start the chatbot worker
-        self.ui.sendButton.hide()
+        self.ui.SendButton_2.hide()
         self.progress_bar2.show()
+        self.ui.MessageInput_2.setText("")
 
         self.chatbot_worker = ChatbotWorker(prompt)
         self.chatbot_worker.prompt_completed.connect(self.on_prompt_complete)
         self.chatbot_worker.start()
 
-    """def on_prompt_complete(self, prompt, output):
+    def on_prompt_complete(self, prompt, output):
         # Display the AI's response in the chat display
-        self.ui.sendButton.show()
+        self.ui.SendButton_2.show()
         self.progress_bar2.hide()
-        self.ui.chatDisplay.addItem(f"AI: \n{output}")"""
+        self.ui.output_window.addItem(f"AI: \n{output}")
 
 
 
@@ -303,15 +344,9 @@ class MainWindow:
 
         # Preserve existing values
         self.api = config.get('API', 'gemini_api_key', fallback="")
-        self.scan_type = config.get('API', 'scan_type', fallback="header_scan")
+        self.scan_type = config.get('API', 'scan_type', fallback="")
 
         self.ui.api_key.setText(self.api)
-
-        if self.api.strip() == "":
-            self.ui.api_btn.setDisabled(True)
-
-        if self.api.strip() != "":
-            self.ui.api_btn.setEnabled(True)
 
     # ALLOTING ALL ICONS
 

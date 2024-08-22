@@ -91,7 +91,7 @@
                 <string/>
                </property>
                <property name="icon">
-                <iconset resource="../resources/resource.qrc">
+                <iconset>
                  <normaloff>:/icons/icons/scanner.ico</normaloff>:/icons/icons/scanner.ico</iconset>
                </property>
                <property name="iconSize">
@@ -120,7 +120,7 @@
                 <string/>
                </property>
                <property name="icon">
-                <iconset resource="../resources/resource.qrc">
+                <iconset>
                  <normaloff>:/icons/icons/ai.ico</normaloff>:/icons/icons/ai.ico</iconset>
                </property>
                <property name="iconSize">
@@ -158,7 +158,7 @@
               <string/>
              </property>
              <property name="icon">
-              <iconset resource="../resources/resource.qrc">
+              <iconset>
                <normaloff>:/icons/icons/settings.ico</normaloff>:/icons/icons/settings.ico</iconset>
              </property>
              <property name="iconSize">
@@ -228,7 +228,7 @@
                 <string> Scan</string>
                </property>
                <property name="icon">
-                <iconset resource="../resources/resource.qrc">
+                <iconset>
                  <normaloff>:/icons/icons/scanner.ico</normaloff>:/icons/icons/scanner.ico</iconset>
                </property>
                <property name="iconSize">
@@ -257,7 +257,7 @@
                 <string> AI Chatbot</string>
                </property>
                <property name="icon">
-                <iconset resource="../resources/resource.qrc">
+                <iconset>
                  <normaloff>:/icons/icons/ai.ico</normaloff>:/icons/icons/ai.ico</iconset>
                </property>
                <property name="iconSize">
@@ -301,7 +301,7 @@
               <string> Settings</string>
              </property>
              <property name="icon">
-              <iconset resource="../resources/resource.qrc">
+              <iconset>
                <normaloff>:/icons/icons/settings.ico</normaloff>:/icons/icons/settings.ico</iconset>
              </property>
              <property name="iconSize">
@@ -363,7 +363,7 @@
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset resource="../resources/resource.qrc">
+                 <iconset>
                   <normaloff>:/icons/icons/menu-4-32.ico</normaloff>:/icons/icons/menu-4-32.ico</iconset>
                 </property>
                 <property name="iconSize">
@@ -443,7 +443,7 @@
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset resource="../resources/resource.qrc">
+                 <iconset>
                   <normaloff>:/icons/icons/account.ico</normaloff>:/icons/icons/account.ico</iconset>
                 </property>
                 <property name="iconSize">
@@ -652,87 +652,21 @@ QPushButton#report_generate_btn:pressed {
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_16">
                   <item>
-                   <widget class="QScrollArea" name="scrollArea">
-                    <property name="styleSheet">
-                     <string notr="true">/* Scroll Area */
-QScrollArea {
-    border: 1px solid #b0b0b0; /* Lighter gray border */
-    border-radius: 10px; /* Rounded corners */
-    background-color: #40414F;
-}
-
-/* Scroll Area's Viewport (contents area) */
-QScrollArea &gt; QWidget &gt; QWidget {
-   background-color: #343541; /* White background for the viewport contents */
-}
-
-/* Scroll Bar */
-QScrollBar:vertical {
-    border: 1px solid #a0a0a0; /* Slightly darker gray border for better visibility */
-    background: #ffffff; /* White background for scrollbar area */
-    width: 12px;
-    border-radius: 6px;
-    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1); /* Light inner shadow */
-}
-
-QScrollBar::handle:vertical {
-    background: #c0c0c0; /* Handle color */
-    border-radius: 12px; /* More rounded corners */
-    border: 1px solid #a0a0a0; /* Border around the handle for visibility */
-}
-
-QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
-    border: 1px solid #a0a0a0; /* Slightly darker gray border */
-    background: #ffffff; /* White background for scrollbar buttons */
-    border-radius: 6px;
-}
-
-QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-    background: #ffffff; /* White background for the scrollbar track */
-    border-radius: 6px;
-}
-
-QScrollBar:horizontal {
-    border: 1px solid #a0a0a0; /* Slightly darker gray border for better visibility */
-    background: #ffffff; /* White background for scrollbar area */
-    height: 12px;
-    border-radius: 6px;
-    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1); /* Light inner shadow */
-}
-
-QScrollBar::handle:horizontal {
-    background: #c0c0c0; /* Handle color */
-    border-radius: 12px; /* More rounded corners */
-    border: 1px solid #a0a0a0; /* Border around the handle for visibility */
-}
-
-QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
-    border: 1px solid #a0a0a0; /* Slightly darker gray border */
-    background: #ffffff; /* White background for scrollbar buttons */
-    border-radius: 6px;
-}
-
-QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
-    background: #ffffff; /* White background for the scrollbar track */
-    border-radius: 6px;
-}
-
-
-</string>
+                   <widget class="QListWidget" name="output_window">
+                    <property name="font">
+                     <font>
+                      <pointsize>11</pointsize>
+                      <bold>true</bold>
+                     </font>
                     </property>
-                    <property name="widgetResizable">
+                    <property name="styleSheet">
+                     <string notr="true">QListWidget {
+    color: white;
+}</string>
+                    </property>
+                    <property name="wordWrap">
                      <bool>true</bool>
                     </property>
-                    <widget class="QWidget" name="scrollAreaWidgetContents_2">
-                     <property name="geometry">
-                      <rect>
-                       <x>0</x>
-                       <y>0</y>
-                       <width>651</width>
-                       <height>465</height>
-                      </rect>
-                     </property>
-                    </widget>
                    </widget>
                   </item>
                   <item>

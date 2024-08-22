@@ -1,9 +1,9 @@
 import requests
 import google.generativeai as palm
-import configparser
 import translation_module as translate
 import os
 import subprocess
+import nmap
 
 def check_security_headers(url):
     headers = {
@@ -61,11 +61,7 @@ def check_security_headers(url):
     except requests.exceptions.RequestException as e:
         return f"Error: {e}"
 
-def produce_summary(outputData):
-    # Read the API key from the config.ini file
-    config = configparser.ConfigParser()
-    config.read('config.ini')
-    api_key = config.get('API', 'gemini_api_key')
+def produce_summary(outputData, api_key):
 
     # Set up the PaLM API key
     palm.configure(api_key=api_key)
@@ -85,6 +81,8 @@ def run_nikto_scan(url):
     cwd = get_cwd()
     # Path to the nikto.pl file (adjust this to the correct path)
     nikto_path = cwd+"\\Lib\\nikto\\program\\nikto.pl"
+
+    print("Started Nikto Scan")
 
     # PowerShell command to run Nikto scan
     ps_command = f'powershell -NoProfile -ExecutionPolicy Bypass -Command "& \'{nikto_path}\' -host {url}"'
@@ -106,9 +104,38 @@ def run_nikto_scan(url):
     output = output.decode('utf-8', errors='ignore')
     error = error.decode('utf-8', errors='ignore')
 
-    if output:
-        print("Nikto Scan Output:")
-        print(output)
-    if error:
-        print("Nikto Scan Errors:")
-        print(error)
+    total_output = "Nikto Scan Output:" + output + "\n" + "Nikto Scan Errors:" + error
+
+    return total_output
+
+
+def run_nmap_scan(url):
+    # Initialize the Nmap port scanner
+    nm = nmap.PortScanner()
+
+    # Define the target IP address or hostname
+    target = url
+
+    # Define the scan options (e.g., ports 22-443)
+    scan_options = '-p 22-443'
+
+    # Run the scan
+    nm.scan(target, arguments=scan_options)
+
+    # Initialize a variable to store the scan results
+    scan_results = ""
+
+    # Store the results in the variable
+    for host in nm.all_hosts():
+        scan_results += f'Host : {host} ({nm[host].hostname()})\n'
+        scan_results += f'State : {nm[host].state()}\n'
+        for proto in nm[host].all_protocols():
+            scan_results += '----------\n'
+            scan_results += f'Protocol : {proto}\n'
+
+            lport = nm[host][proto].keys()
+            for port in sorted(lport):
+                scan_results += f'port : {port}\tstate : {nm[host][proto][port]["state"]}\n'
+
+    # Return the entire scan results as a single string
+    return scan_results

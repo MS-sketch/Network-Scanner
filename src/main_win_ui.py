@@ -287,79 +287,17 @@ class Ui_MainWindow(object):
         self.frame_6.setObjectName("frame_6")
         self.verticalLayout_16 = QtWidgets.QVBoxLayout(self.frame_6)
         self.verticalLayout_16.setObjectName("verticalLayout_16")
-        self.scrollArea = QtWidgets.QScrollArea(parent=self.frame_6)
-        self.scrollArea.setStyleSheet("/* Scroll Area */\n"
-"QScrollArea {\n"
-"    border: 1px solid #b0b0b0; /* Lighter gray border */\n"
-"    border-radius: 10px; /* Rounded corners */\n"
-"    background-color: #40414F;\n"
-"}\n"
-"\n"
-"/* Scroll Area\'s Viewport (contents area) */\n"
-"QScrollArea > QWidget > QWidget {\n"
-"   background-color: #343541; /* White background for the viewport contents */\n"
-"}\n"
-"\n"
-"/* Scroll Bar */\n"
-"QScrollBar:vertical {\n"
-"    border: 1px solid #a0a0a0; /* Slightly darker gray border for better visibility */\n"
-"    background: #ffffff; /* White background for scrollbar area */\n"
-"    width: 12px;\n"
-"    border-radius: 6px;\n"
-"    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1); /* Light inner shadow */\n"
-"}\n"
-"\n"
-"QScrollBar::handle:vertical {\n"
-"    background: #c0c0c0; /* Handle color */\n"
-"    border-radius: 12px; /* More rounded corners */\n"
-"    border: 1px solid #a0a0a0; /* Border around the handle for visibility */\n"
-"}\n"
-"\n"
-"QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {\n"
-"    border: 1px solid #a0a0a0; /* Slightly darker gray border */\n"
-"    background: #ffffff; /* White background for scrollbar buttons */\n"
-"    border-radius: 6px;\n"
-"}\n"
-"\n"
-"QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
-"    background: #ffffff; /* White background for the scrollbar track */\n"
-"    border-radius: 6px;\n"
-"}\n"
-"\n"
-"QScrollBar:horizontal {\n"
-"    border: 1px solid #a0a0a0; /* Slightly darker gray border for better visibility */\n"
-"    background: #ffffff; /* White background for scrollbar area */\n"
-"    height: 12px;\n"
-"    border-radius: 6px;\n"
-"    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1); /* Light inner shadow */\n"
-"}\n"
-"\n"
-"QScrollBar::handle:horizontal {\n"
-"    background: #c0c0c0; /* Handle color */\n"
-"    border-radius: 12px; /* More rounded corners */\n"
-"    border: 1px solid #a0a0a0; /* Border around the handle for visibility */\n"
-"}\n"
-"\n"
-"QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {\n"
-"    border: 1px solid #a0a0a0; /* Slightly darker gray border */\n"
-"    background: #ffffff; /* White background for scrollbar buttons */\n"
-"    border-radius: 6px;\n"
-"}\n"
-"\n"
-"QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {\n"
-"    background: #ffffff; /* White background for the scrollbar track */\n"
-"    border-radius: 6px;\n"
-"}\n"
-"\n"
-"\n"
-"")
-        self.scrollArea.setWidgetResizable(True)
-        self.scrollArea.setObjectName("scrollArea")
-        self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 651, 465))
-        self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents_2)
-        self.verticalLayout_16.addWidget(self.scrollArea)
+        self.output_window = QtWidgets.QListWidget(parent=self.frame_6)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(True)
+        self.output_window.setFont(font)
+        self.output_window.setStyleSheet("QListWidget {\n"
+"    color: white;\n"
+"}")
+        self.output_window.setWordWrap(True)
+        self.output_window.setObjectName("output_window")
+        self.verticalLayout_16.addWidget(self.output_window)
         self.frame_7 = QtWidgets.QFrame(parent=self.frame_6)
         self.frame_7.setMinimumSize(QtCore.QSize(400, 0))
         self.frame_7.setStyleSheet("background-color: #343541;")

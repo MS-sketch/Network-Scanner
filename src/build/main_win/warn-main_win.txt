@@ -14,8 +14,8 @@ Types if import:
 IMPORTANT: Do NOT post this list to the issue-tracker. Use it as a basis for
             tracking down the missing module yourself. Thanks!
 
-missing module named grp - imported by shutil (delayed, optional), tarfile (optional), pathlib (delayed, optional), subprocess (delayed, conditional, optional), backports.tarfile (optional), setuptools._vendor.backports.tarfile (optional), setuptools._distutils.archive_util (optional), setuptools._distutils.tests.unix_compat (optional)
-missing module named pwd - imported by posixpath (delayed, conditional, optional), shutil (delayed, optional), tarfile (optional), pathlib (delayed, optional), subprocess (delayed, conditional, optional), netrc (delayed, conditional), getpass (delayed), http.server (delayed, optional), backports.tarfile (optional), setuptools._vendor.backports.tarfile (optional), setuptools._distutils.util (delayed, conditional, optional), setuptools._distutils.archive_util (optional), setuptools._distutils.tests.unix_compat (optional), setuptools._distutils.tests.test_util (delayed)
+missing module named grp - imported by subprocess (delayed, conditional, optional), shutil (delayed, optional), tarfile (optional), pathlib (delayed, optional), backports.tarfile (optional), setuptools._vendor.backports.tarfile (optional), setuptools._distutils.archive_util (optional), setuptools._distutils.tests.unix_compat (optional)
+missing module named pwd - imported by posixpath (delayed, conditional, optional), subprocess (delayed, conditional, optional), shutil (delayed, optional), tarfile (optional), pathlib (delayed, optional), netrc (delayed, conditional), getpass (delayed), http.server (delayed, optional), backports.tarfile (optional), setuptools._vendor.backports.tarfile (optional), setuptools._distutils.util (delayed, conditional, optional), setuptools._distutils.archive_util (optional), setuptools._distutils.tests.unix_compat (optional), setuptools._distutils.tests.test_util (delayed)
 missing module named posix - imported by os (conditional, optional), posixpath (optional), shutil (conditional), importlib._bootstrap_external (conditional)
 missing module named resource - imported by posix (top-level)
 missing module named _frozen_importlib_external - imported by importlib._bootstrap (delayed), importlib (optional), importlib.abc (optional), zipimport (top-level)
@@ -45,6 +45,7 @@ missing module named multiprocessing.get_context - imported by multiprocessing (
 missing module named multiprocessing.TimeoutError - imported by multiprocessing (top-level), multiprocessing.pool (top-level)
 missing module named multiprocessing.BufferTooShort - imported by multiprocessing (top-level), multiprocessing.connection (top-level)
 missing module named multiprocessing.AuthenticationError - imported by multiprocessing (top-level), multiprocessing.connection (top-level)
+missing module named multiprocessing.Process - imported by multiprocessing (top-level), nmap.nmap (top-level)
 missing module named multiprocessing.RLock - imported by multiprocessing (delayed, conditional, optional), tqdm.std (delayed, conditional, optional)
 missing module named asyncio.DefaultEventLoopPolicy - imported by asyncio (delayed, conditional), asyncio.events (delayed, conditional)
 runtime module named distutils.tests.test_config - imported by setuptools._distutils.tests.test_register (top-level), setuptools._distutils.tests.test_sdist (top-level), setuptools._distutils.tests.test_upload (top-level)
@@ -98,10 +99,8 @@ missing module named 'oauth2client.contrib' - imported by googleapiclient.discov
 missing module named 'google.appengine' - imported by google.auth.app_engine (optional), googleapiclient.discovery_cache.appengine_memcache (top-level)
 missing module named 'oauth2client.client' - imported by googleapiclient._auth (optional)
 missing module named oauth2client - imported by googleapiclient._auth (optional)
-missing module named 'cryptography.x509' - imported by urllib3.contrib.pyopenssl (delayed, optional), google.auth.crypt._cryptography_rsa (top-level), google.auth.crypt.es256 (top-level)
-missing module named 'cryptography.hazmat' - imported by google.auth.crypt._cryptography_rsa (top-level), google.auth.crypt.es256 (top-level), google.auth.transport._custom_tls_signer (delayed)
-missing module named 'cryptography.exceptions' - imported by google.auth.crypt._cryptography_rsa (top-level), google.auth.crypt.es256 (top-level)
-missing module named cryptography - imported by urllib3.contrib.pyopenssl (top-level), requests (conditional, optional), google.auth.crypt.es256 (top-level)
+missing module named cryptography.x509.UnsupportedExtension - imported by cryptography.x509 (optional), urllib3.contrib.pyopenssl (optional)
+missing module named bcrypt - imported by cryptography.hazmat.primitives.serialization.ssh (optional)
 runtime module named distutils.log - imported by setuptools.logging (top-level), setuptools.discovery (top-level), setuptools.dist (top-level), setuptools.installer (top-level), setuptools.command.egg_info (top-level), setuptools.command.sdist (top-level), setuptools.command.setopt (top-level), setuptools.command.bdist_egg (top-level), setuptools.wheel (delayed), setuptools.command.bdist_wheel (top-level), cffi._shimmed_dist_utils (optional)
 missing module named imp - imported by cffi.verifier (conditional), cffi._imp_emulation (optional)
 missing module named _dummy_thread - imported by cffi.lock (conditional, optional), numpy._core.arrayprint (optional)
