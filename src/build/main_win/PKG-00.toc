@@ -42,10 +42,6 @@
    'C:\\Program '
    'Files\\Python312\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_inspect.py',
    'PYSOURCE'),
-  ('pyi_rth_pyqt6',
-   'C:\\Program '
-   'Files\\Python312\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pyqt6.py',
-   'PYSOURCE'),
   ('pyi_rth_pkgutil',
    'C:\\Program '
    'Files\\Python312\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pkgutil.py',
@@ -61,6 +57,10 @@
   ('pyi_rth_pkgres',
    'C:\\Program '
    'Files\\Python312\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pkgres.py',
+   'PYSOURCE'),
+  ('pyi_rth_pyqt6',
+   'C:\\Program '
+   'Files\\Python312\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pyqt6.py',
    'PYSOURCE'),
   ('pyi_rth_mplconfig',
    'C:\\Program '

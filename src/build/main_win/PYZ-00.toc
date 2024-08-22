@@ -519,6 +519,10 @@
   ('charset_normalizer.version',
    'C:\\Users\\HP\\AppData\\Roaming\\Python\\Python312\\site-packages\\charset_normalizer\\version.py',
    'PYMODULE'),
+  ('chatbot_manager',
+   'C:\\Users\\HP\\Coding '
+   'Projects\\2024\\SchoolProject\\src\\chatbot_manager.py',
+   'PYMODULE'),
   ('cmd', 'C:\\Program Files\\Python312\\Lib\\cmd.py', 'PYMODULE'),
   ('code', 'C:\\Program Files\\Python312\\Lib\\code.py', 'PYMODULE'),
   ('codeop', 'C:\\Program Files\\Python312\\Lib\\codeop.py', 'PYMODULE'),

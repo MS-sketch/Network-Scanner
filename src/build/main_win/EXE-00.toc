@@ -66,10 +66,6 @@
    'C:\\Program '
    'Files\\Python312\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_inspect.py',
    'PYSOURCE'),
-  ('pyi_rth_pyqt6',
-   'C:\\Program '
-   'Files\\Python312\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pyqt6.py',
-   'PYSOURCE'),
   ('pyi_rth_pkgutil',
    'C:\\Program '
    'Files\\Python312\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pkgutil.py',
@@ -86,6 +82,10 @@
    'C:\\Program '
    'Files\\Python312\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pkgres.py',
    'PYSOURCE'),
+  ('pyi_rth_pyqt6',
+   'C:\\Program '
+   'Files\\Python312\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pyqt6.py',
+   'PYSOURCE'),
   ('pyi_rth_mplconfig',
    'C:\\Program '
    'Files\\Python312\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_mplconfig.py',
@@ -96,7 +96,7 @@
  [],
  False,
  False,
- 1722792037,
+ 1723055444,
  [('run.exe',
    'C:\\Program '
    'Files\\Python312\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\run.exe',
