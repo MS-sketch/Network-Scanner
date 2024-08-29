@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>947</width>
-    <height>640</height>
+    <height>631</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -552,6 +552,11 @@ QPushButton#clearWebAddress_btn:pressed {
     padding-top: 5px;
     background-color: rgba(103, 58, 183, 255);
 }
+QPushButton#clearWebAddress_btn:disabled {
+    background-color: rgba(200, 200, 200, 150);
+    color: rgba(255, 255, 255, 150);
+}
+
 </string>
                     </property>
                     <property name="text">
@@ -597,6 +602,11 @@ QPushButton#startScan_btn:pressed {
     padding-top: 5px;
     background-color: rgba(103, 58, 183, 255);
 }
+
+QPushButton#startScan_btn:disabled {
+    background-color: rgba(200, 200, 200, 150);
+    color: rgba(255, 255, 255, 150);
+}
 </string>
                     </property>
                     <property name="text">
@@ -619,7 +629,7 @@ QPushButton#startScan_btn:pressed {
                   <item>
                    <widget class="QStackedWidget" name="stackedWidget_4">
                     <property name="currentIndex">
-                     <number>1</number>
+                     <number>2</number>
                     </property>
                     <widget class="QWidget" name="page_3">
                      <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -690,6 +700,11 @@ QPushButton#report_generate_btn:pressed {
     padding-top: 5px;
     background-color: rgba(103, 58, 183, 255);
 }
+
+QPushButton#report_generate_btn:disabled {
+    background-color: rgba(200, 200, 200, 150);
+    color: rgba(255, 255, 255, 150);
+}
 </string>
                            </property>
                            <property name="text">
@@ -699,6 +714,52 @@ QPushButton#report_generate_btn:pressed {
                          </item>
                         </layout>
                        </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                    <widget class="QWidget" name="loading_page">
+                     <layout class="QHBoxLayout" name="horizontalLayout_7">
+                      <item>
+                       <spacer name="horizontalSpacer_8">
+                        <property name="orientation">
+                         <enum>Qt::Orientation::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QFrame" name="frame_9">
+                        <property name="minimumSize">
+                         <size>
+                          <width>50</width>
+                          <height>0</height>
+                         </size>
+                        </property>
+                        <property name="frameShape">
+                         <enum>QFrame::Shape::StyledPanel</enum>
+                        </property>
+                        <property name="frameShadow">
+                         <enum>QFrame::Shadow::Raised</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_7">
+                        <property name="orientation">
+                         <enum>Qt::Orientation::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
                       </item>
                      </layout>
                     </widget>
@@ -785,6 +846,12 @@ Type A Website Or Port &amp; Click On Go To Get Started.</string>
                     <layout class="QHBoxLayout" name="horizontalLayout_8">
                      <item>
                       <widget class="QLineEdit" name="MessageInput_2">
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
                        <property name="styleSheet">
                         <string notr="true">    QLineEdit {
         border: 2px solid #565869;
@@ -809,25 +876,36 @@ Type A Website Or Port &amp; Click On Go To Get Started.</string>
                      <item>
                       <widget class="QPushButton" name="SendButton_2">
                        <property name="styleSheet">
-                        <string notr="true">    QPushButton {
-        background-color: #10A37F;
-        color: #FFFFFF;
-        border-radius: 10px;
-        padding: 10px;
-        font-size: 16px;
-    }
+                        <string notr="true">QPushButton {
+    background-color: #10A37F;
+    color: #FFFFFF;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
 
-    QPushButton:hover {
-        background-color: #13C59D;
-    }
+QPushButton:hover {
+    background-color: #13C59D;
+}
 
-    QPushButton#SendButton {
-        background-color: #19B797;
-    }
+QPushButton:disabled {
+    background-color: #A0A0A0;  /* Grey background */
+    color: #D3D3D3;  /* Light grey text color */
+}
 
-    QPushButton#SendButton:hover {
-        background-color: #13C59D;
-    }</string>
+QPushButton#SendButton {
+    background-color: #19B797;
+}
+
+QPushButton#SendButton:hover {
+    background-color: #13C59D;
+}
+
+QPushButton#SendButton:disabled {
+    background-color: #A0A0A0;  /* Grey background for SendButton */
+    color: #D3D3D3;  /* Light grey text color for SendButton */
+}
+</string>
                        </property>
                        <property name="text">
                         <string>Send</string>

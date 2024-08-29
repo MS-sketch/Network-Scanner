@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(947, 640)
+        MainWindow.resize(947, 631)
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -233,6 +233,11 @@ class Ui_MainWindow(object):
 "    padding-top: 5px;\n"
 "    background-color: rgba(103, 58, 183, 255);\n"
 "}\n"
+"QPushButton#clearWebAddress_btn:disabled {\n"
+"    background-color: rgba(200, 200, 200, 150);\n"
+"    color: rgba(255, 255, 255, 150);\n"
+"}\n"
+"\n"
 "")
         self.clearWebAddress_btn.setObjectName("clearWebAddress_btn")
         self.horizontalLayout_6.addWidget(self.clearWebAddress_btn)
@@ -257,6 +262,11 @@ class Ui_MainWindow(object):
 "    padding-left: 5px;\n"
 "    padding-top: 5px;\n"
 "    background-color: rgba(103, 58, 183, 255);\n"
+"}\n"
+"\n"
+"QPushButton#startScan_btn:disabled {\n"
+"    background-color: rgba(200, 200, 200, 150);\n"
+"    color: rgba(255, 255, 255, 150);\n"
 "}\n"
 "")
         self.startScan_btn.setObjectName("startScan_btn")
@@ -313,11 +323,31 @@ class Ui_MainWindow(object):
 "    padding-top: 5px;\n"
 "    background-color: rgba(103, 58, 183, 255);\n"
 "}\n"
+"\n"
+"QPushButton#report_generate_btn:disabled {\n"
+"    background-color: rgba(200, 200, 200, 150);\n"
+"    color: rgba(255, 255, 255, 150);\n"
+"}\n"
 "")
         self.report_generate_btn.setObjectName("report_generate_btn")
         self.horizontalLayout_9.addWidget(self.report_generate_btn)
         self.verticalLayout_8.addWidget(self.frame_8)
         self.stackedWidget_4.addWidget(self.page_3)
+        self.loading_page = QtWidgets.QWidget()
+        self.loading_page.setObjectName("loading_page")
+        self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.loading_page)
+        self.horizontalLayout_7.setObjectName("horizontalLayout_7")
+        spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_7.addItem(spacerItem6)
+        self.frame_9 = QtWidgets.QFrame(parent=self.loading_page)
+        self.frame_9.setMinimumSize(QtCore.QSize(50, 0))
+        self.frame_9.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.frame_9.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.frame_9.setObjectName("frame_9")
+        self.horizontalLayout_7.addWidget(self.frame_9)
+        spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_7.addItem(spacerItem7)
+        self.stackedWidget_4.addWidget(self.loading_page)
         self.page_4 = QtWidgets.QWidget()
         self.page_4.setObjectName("page_4")
         self.verticalLayout_13 = QtWidgets.QVBoxLayout(self.page_4)
@@ -366,6 +396,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout(self.frame_7)
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
         self.MessageInput_2 = QtWidgets.QLineEdit(parent=self.frame_7)
+        self.MessageInput_2.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.MessageInput_2.setStyleSheet("    QLineEdit {\n"
 "        border: 2px solid #565869;\n"
 "        border-radius: 10px;\n"
@@ -383,25 +414,36 @@ class Ui_MainWindow(object):
         self.MessageInput_2.setObjectName("MessageInput_2")
         self.horizontalLayout_8.addWidget(self.MessageInput_2)
         self.SendButton_2 = QtWidgets.QPushButton(parent=self.frame_7)
-        self.SendButton_2.setStyleSheet("    QPushButton {\n"
-"        background-color: #10A37F;\n"
-"        color: #FFFFFF;\n"
-"        border-radius: 10px;\n"
-"        padding: 10px;\n"
-"        font-size: 16px;\n"
-"    }\n"
+        self.SendButton_2.setStyleSheet("QPushButton {\n"
+"    background-color: #10A37F;\n"
+"    color: #FFFFFF;\n"
+"    border-radius: 10px;\n"
+"    padding: 10px;\n"
+"    font-size: 16px;\n"
+"}\n"
 "\n"
-"    QPushButton:hover {\n"
-"        background-color: #13C59D;\n"
-"    }\n"
+"QPushButton:hover {\n"
+"    background-color: #13C59D;\n"
+"}\n"
 "\n"
-"    QPushButton#SendButton {\n"
-"        background-color: #19B797;\n"
-"    }\n"
+"QPushButton:disabled {\n"
+"    background-color: #A0A0A0;  /* Grey background */\n"
+"    color: #D3D3D3;  /* Light grey text color */\n"
+"}\n"
 "\n"
-"    QPushButton#SendButton:hover {\n"
-"        background-color: #13C59D;\n"
-"    }")
+"QPushButton#SendButton {\n"
+"    background-color: #19B797;\n"
+"}\n"
+"\n"
+"QPushButton#SendButton:hover {\n"
+"    background-color: #13C59D;\n"
+"}\n"
+"\n"
+"QPushButton#SendButton:disabled {\n"
+"    background-color: #A0A0A0;  /* Grey background for SendButton */\n"
+"    color: #D3D3D3;  /* Light grey text color for SendButton */\n"
+"}\n"
+"")
         self.SendButton_2.setObjectName("SendButton_2")
         self.horizontalLayout_8.addWidget(self.SendButton_2)
         self.verticalLayout_16.addWidget(self.frame_7)
@@ -490,8 +532,8 @@ class Ui_MainWindow(object):
 "")
         self.ok_btn.setObjectName("ok_btn")
         self.verticalLayout_12.addWidget(self.ok_btn)
-        spacerItem6 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
-        self.verticalLayout_12.addItem(spacerItem6)
+        spacerItem8 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        self.verticalLayout_12.addItem(spacerItem8)
         self.verticalLayout_9.addWidget(self.frame_5)
         self.stackedWidget_2.addWidget(self.page_6)
         self.verticalLayout_5.addWidget(self.stackedWidget_2)
@@ -501,8 +543,8 @@ class Ui_MainWindow(object):
         self.page.setObjectName("page")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.page)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
-        self.horizontalLayout.addItem(spacerItem7)
+        spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout.addItem(spacerItem9)
         self.stackedWidget_3 = QtWidgets.QStackedWidget(parent=self.page)
         self.stackedWidget_3.setObjectName("stackedWidget_3")
         self.page_10 = QtWidgets.QWidget()
@@ -693,12 +735,12 @@ class Ui_MainWindow(object):
         self.label_32.raise_()
         self.frame_4.raise_()
         self.verticalLayout_11.addWidget(self.widget_2)
-        spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
-        self.verticalLayout_11.addItem(spacerItem8)
+        spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.verticalLayout_11.addItem(spacerItem10)
         self.stackedWidget_3.addWidget(self.page_10)
         self.horizontalLayout.addWidget(self.stackedWidget_3)
-        spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
-        self.horizontalLayout.addItem(spacerItem9)
+        spacerItem11 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout.addItem(spacerItem11)
         self.stackedWidget.addWidget(self.page)
         self.gridLayout.addWidget(self.stackedWidget, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -706,7 +748,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.stackedWidget.setCurrentIndex(0)
         self.stackedWidget_2.setCurrentIndex(0)
-        self.stackedWidget_4.setCurrentIndex(1)
+        self.stackedWidget_4.setCurrentIndex(2)
         self.stackedWidget_3.setCurrentIndex(0)
         self.change_btn.toggled['bool'].connect(self.icon_only_widget.setVisible) # type: ignore
         self.change_btn.toggled['bool'].connect(self.full_menu_widget.setHidden) # type: ignore

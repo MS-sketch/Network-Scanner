@@ -136,13 +136,9 @@ class MainWindow:
         self.api = ""
 
         # Progress Bar (WEBSITE)
-        self.progress_bar = RotatingCircleProgressBar(self.ui.stackedWidget_4)
-        self.progress_bar.setGeometry(720, 0, 50, 50)  # Adjust size and position as needed
+        self.progress_bar = RotatingCircleProgressBar(self.ui.frame_9)
+        self.progress_bar.setGeometry(0, 230, 50, 50)  # Adjust size and position as needed
         self.progress_bar.hide()
-        # Progress Bar 2 (Chatbot)
-        self.progress_bar2 = RotatingCircleProgressBar(self.ui.frame_7)
-        self.progress_bar2.setGeometry(720, 0, 50, 50)  # Adjust size and position as needed
-        self.progress_bar2.hide()
 
         # Config
         self.ui.outputScanResult_textedit.setReadOnly(True)
@@ -171,7 +167,7 @@ class MainWindow:
 
         # FIX
         self.ui.SendButton_2.clicked.connect(self.start_chatbot_thread)
-
+        self.ui.stackedWidget_4.setCurrentIndex(2)
         self.ui.api_btn.clicked.connect(self.write_ini)
 
         # MENU ITEMS
@@ -203,20 +199,27 @@ class MainWindow:
         self.read_config()
         self.set_scan_option()
 
+        self.ui.SendButton_2.setDisabled(True)
+        self.ui.MessageInput_2.textChanged.connect(self.chat_prompt_integrity)
+
     # SCAN RELATED
 
     # AI GENERATE SUMMARY
     def generateAIReport(self):
+        self.ui.stackedWidget_4.setCurrentIndex(1)
+        self.progress_bar.show()
         self.summary = self.ui.outputScanResult_textedit.toPlainText()
         self.worker = ScanSummaryWorker(self.summary)
         self.worker.scan_completed.connect(self.on_summary_complete)
         self.worker.start()
+        self.ui.report_generate_btn.hide()
+        self.ui.label_3.setText("AI Generated Summary: ")
 
     # Handle the completed summary
     def on_summary_complete(self, summary):
         self.ui.outputScanResult_textedit.setHtml(summary)  # Adjust this based on your actual UI component
-
-
+        self.ui.stackedWidget_4.setCurrentIndex(0)
+        self.progress_bar.hide()
 
     def open_scan(self):
         self.ui.stackedWidget_2.setCurrentIndex(0)
@@ -243,11 +246,13 @@ class MainWindow:
         # Start the scan process with the given web address
 
         self.scan_type_notPresent()
-
+        self.ui.stackedWidget_4.setCurrentIndex(1)
         self.web_address = self.ui.website_address_inputbox.text()
         self.disable_btn(True)
         self.ui.startScan_btn.hide()
         self.progress_bar.show()
+        self.ui.report_generate_btn.show()
+        self.ui.label_3.setText("Scan Results: ")
 
         # Initialize and start the scan worker
         self.worker = ScanWorker(self.web_address)
@@ -339,8 +344,7 @@ class MainWindow:
         self.ui.output_window.addItem("You: \n" + prompt)
 
         # Initialize and start the chatbot worker
-        self.ui.SendButton_2.hide()
-        self.progress_bar2.show()
+        self.ui.SendButton_2.setDisabled(True)
         self.ui.MessageInput_2.setText("")
 
         self.chatbot_worker = ChatbotWorker(prompt)
@@ -349,10 +353,8 @@ class MainWindow:
 
     def on_prompt_complete(self, prompt, output):
         # Display the AI's response in the chat display
-        self.ui.SendButton_2.show()
-        self.progress_bar2.hide()
+        self.ui.SendButton_2.setEnabled(True)
         self.ui.output_window.addItem(f"AI: \n{output}")
-
 
 
     # GENERAL ITEMS
@@ -384,7 +386,14 @@ class MainWindow:
 
         self.ui.api_key.setText(self.api)
 
-    # ALLOTING ALL ICONS
+    # Chatbot Integrity
+    def chat_prompt_integrity(self):
+        prompt = self.ui.MessageInput_2.text()
+
+        if prompt.strip() != "":
+            self.ui.SendButton_2.setEnabled(True)
+
+    # ALLOTTING ALL ICONS
 
     def set_icons(self):
         # APP LOGO
