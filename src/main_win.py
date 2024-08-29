@@ -62,6 +62,29 @@ class ChatbotWorker(QThread):
         # Preserve existing values
         self.api3 = config.get('API', 'gemini_api_key', fallback="")
 
+# AI Generate Worker Thread for Scan Summary
+class ScanSummaryWorker(QThread):
+    scan_completed = pyqtSignal(str)
+
+    def __init__(self, output):
+        super().__init__()
+        self.output = output
+        self.api2 = None
+
+    def run(self):
+        self.read_config()
+        response = ns.produce_summary(self.output, self.api2)
+        if response.strip() == "":
+            self.scan_completed.emit("An Error Occurred!")
+        else:
+            self.scan_completed.emit(response)
+
+    def read_config(self):
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+        self.api2 = config.get('API', 'gemini_api_key', fallback="")
+
+
 # Scan Worker Thread
 class ScanWorker(QThread):
     scan_completed = pyqtSignal(str)
@@ -83,15 +106,11 @@ class ScanWorker(QThread):
 
         elif self.scan_type2 == 'header_scan':
             output = ns.check_security_headers(self.web_address)
+
         elif self.scan_type2 == 'nikto':
             output = ns.run_nikto_scan(self.web_address)
 
-        response = ns.produce_summary(output, self.api2)
-
-        if response.strip() == "":
-            self.scan_completed.emit("An Error Occurred!.")
-        else:
-            self.scan_completed.emit(response)
+        self.scan_completed.emit(output)
 
     def read_config(self):
         config = configparser.ConfigParser()
@@ -133,6 +152,9 @@ class MainWindow:
         self.ui.SendButton_2.setDisabled(True)
         self.ui.MessageInput_2.textChanged.connect(self.check_prompt_integrity)
         self.ui.api_key.textChanged.connect(self.check_api_integrety)
+
+        self.ui.report_generate_btn.clicked.connect(self.generateAIReport)
+
 
         # Website Summary
         self.ui.stackedWidget_4.setCurrentIndex(1)
@@ -182,6 +204,20 @@ class MainWindow:
         self.set_scan_option()
 
     # SCAN RELATED
+
+    # AI GENERATE SUMMARY
+    def generateAIReport(self):
+        self.summary = self.ui.outputScanResult_textedit.toPlainText()
+        self.worker = ScanSummaryWorker(self.summary)
+        self.worker.scan_completed.connect(self.on_summary_complete)
+        self.worker.start()
+
+    # Handle the completed summary
+    def on_summary_complete(self, summary):
+        self.ui.outputScanResult_textedit.setHtml(summary)  # Adjust this based on your actual UI component
+
+
+
     def open_scan(self):
         self.ui.stackedWidget_2.setCurrentIndex(0)
 

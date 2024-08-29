@@ -13,6 +13,7 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPNOMODIFY" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="ARPNOREPAIR" Value="1" MultiBuildValue="DefaultBuild:1"/>
+    <ROW Property="ARPPRODUCTICON" Value="app_logo.exe" Type="8"/>
     <ROW Property="ARPSYSTEMCOMPONENT" Value="1"/>
     <ROW Property="Manufacturer" Value="City International School"/>
     <ROW Property="ProductCode" Value="1033:{48ECA49E-9D48-406D-B319-A43C522AC57F} " Type="16"/>
@@ -67,7 +68,7 @@
     <ROW Component="LW2.pm" ComponentId="{04316382-82CA-4A2F-A656-A8B92F2BBBFC}" Directory_="plugins_Dir" Attributes="0" KeyPath="LW2.pm" Type="0"/>
     <ROW Component="NMAP" ComponentId="{2B947CD9-087F-4C50-B640-D1A412A0C45D}" Directory_="APPDIR" Attributes="260" KeyPath="NMAP" Options="2"/>
     <ROW Component="ProductInformation" ComponentId="{E9122B82-2423-43A5-A4BF-2B7818320C9D}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
-    <ROW Component="SHORTCUTDIR" ComponentId="{01525E8B-190D-4B62-A214-54799232A605}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="SHORTCUTDIR" ComponentId="{67695151-1977-4055-A8E9-A310CC191FB3}" Directory_="SHORTCUTDIR" Attributes="0"/>
     <ROW Component="STRAWBERRYPERL64" ComponentId="{033D5FCC-2D93-4C82-8300-3C046D5F7CE7}" Directory_="APPDIR" Attributes="260" KeyPath="STRAWBERRYPERL64" Options="2"/>
     <ROW Component="account.ico" ComponentId="{F71B3B72-4732-4AE7-9944-977C217D094E}" Directory_="icons_Dir" Attributes="0" KeyPath="account.ico" Type="0"/>
     <ROW Component="alienlogo_vectorized.png" ComponentId="{C003A2E9-22C8-42D9-ADA4-1359EDB16135}" Directory_="documentation_Dir" Attributes="0" KeyPath="alienlogo_vectorized.png" Type="0"/>
@@ -77,7 +78,7 @@
     <ROW Component="dockerignore" ComponentId="{16F52BA2-5BCB-4869-B2A0-4124F0B72280}" Directory_="nikto_Dir" Attributes="0" KeyPath="dockerignore" Type="0"/>
     <ROW Component="documentation_notes.txt" ComponentId="{103EF73C-621F-4991-A4E5-499A53A689CA}" Directory_="devdocs_Dir" Attributes="0" KeyPath="documentation_notes.txt" Type="0"/>
     <ROW Component="htm_close.tmpl" ComponentId="{070920A3-1C0E-44C8-86D6-59AAA3174EA3}" Directory_="templates_Dir" Attributes="0" KeyPath="htm_close.tmpl" Type="0"/>
-    <ROW Component="main_win.exe" ComponentId="{55E278E2-6F6C-4792-A532-FB035145D798}" Directory_="APPDIR" Attributes="256" KeyPath="main_win.exe"/>
+    <ROW Component="main_win.exe" ComponentId="{C2D02617-9A2B-42B9-BDA0-35686D072D89}" Directory_="APPDIR" Attributes="256" KeyPath="main_win.exe"/>
     <ROW Component="nikto.1" ComponentId="{27EAE530-8516-45B6-BF4C-F22DCC51E190}" Directory_="docs_Dir" Attributes="0" KeyPath="nikto.1_1" Type="0"/>
     <ROW Component="nikto.conf.default" ComponentId="{BCEB8B86-2ACD-4466-807B-2DB3E5ABD1D7}" Directory_="program_Dir" Attributes="0" KeyPath="nikto.conf.default" Type="0"/>
     <ROW Component="resource.qrc" ComponentId="{1197D1AD-514E-4988-A170-12088076073D}" Directory_="resources_Dir" Attributes="0" KeyPath="resource.qrc" Type="0"/>
@@ -203,8 +204,8 @@
     <ROW File="resource.qrc" Component_="resource.qrc" FileName="resource.qrc" Attributes="0" SourcePath="..\..\src\resources\resource.qrc" SelfReg="false"/>
     <ROW File="style.qss" Component_="resource.qrc" FileName="style.qss" Attributes="0" SourcePath="..\..\src\resources\style.qss" SelfReg="false"/>
     <ROW File="security_header_scanner.py_1" Component_="security_header_scanner.py" FileName="SECURI~1.PY|security_header_scanner.py" Attributes="0" SourcePath="..\..\src\Lib\security_header_scanner.py" SelfReg="false"/>
-    <ROW File="main_win.exe" Component_="main_win.exe" FileName="NETWOR~1.EXE|Network Scanner.exe" Attributes="0" SourcePath="..\..\src\dist\main_win.exe" SelfReg="false" DigSign="true"/>
     <ROW File="config.ini" Component_="config.ini" FileName="config.ini" Attributes="0" SourcePath="..\..\src\config.ini" SelfReg="false"/>
+    <ROW File="main_win.exe" Component_="main_win.exe" FileName="NETWOR~1.EXE|Network Scanner.exe" Attributes="0" SourcePath="..\..\src\dist\main_win.exe" SelfReg="false" DigSign="true"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" GeneralOptions="o" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="18"/>
@@ -266,6 +267,7 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
     <ROW Name="ExternalUICleaner.dll" SourcePath="&lt;AI_CUSTACTS&gt;ExternalUICleaner.dll"/>
     <ROW Name="Prereq.dll" SourcePath="&lt;AI_CUSTACTS&gt;Prereq.dll"/>
+    <ROW Name="ShortcutFlags.dll" SourcePath="&lt;AI_CUSTACTS&gt;ShortcutFlags.dll"/>
     <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
     <ROW Name="aipackagechainer.exe" SourcePath="&lt;AI_CUSTACTS&gt;aipackagechainer.exe" DigSign="true"/>
     <ROW Name="chainersupport.dll" SourcePath="&lt;AI_CUSTACTS&gt;chainersupport.dll"/>
@@ -317,6 +319,7 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
     <ROW Action="AI_AppSearchEx" Type="1" Source="Prereq.dll" Target="DoAppSearchEx"/>
+    <ROW Action="AI_ApplyShortcutFlags" Type="3073" Source="ShortcutFlags.dll" Target="UpdateShortcutFlags" WithoutSeq="true"/>
     <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH_ORIGINAL" Target="[AI_SETUPEXEPATH]"/>
     <ROW Action="AI_ChainerScheduleReboot" Type="1" Source="chainersupport.dll" Target="ScheduleReboot" WithoutSeq="true"/>
     <ROW Action="AI_CleanPrePrereq" Type="65" Source="Prereq.dll" Target="CleanPrereq" WithoutSeq="true"/>
@@ -346,7 +349,11 @@
     <ROW Action="AI_LaunchChainer" Type="3314" Source="AI_PREREQ_CHAINER"/>
     <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
     <ROW Action="AI_PRESERVE_INSTALL_TYPE" Type="65" Source="aicustact.dll" Target="PreserveInstallType"/>
+    <ROW Action="AI_PinShortcuts" Type="1" Source="ShortcutFlags.dll" Target="PinShortcuts"/>
+    <ROW Action="AI_PinToStartScreen" Type="1025" Source="ShortcutFlags.dll" Target="PinToStartScreen" WithoutSeq="true"/>
+    <ROW Action="AI_PinToTaskbar" Type="1025" Source="ShortcutFlags.dll" Target="PinToTaskbar" WithoutSeq="true"/>
     <ROW Action="AI_PrepareChainers" Type="1" Source="chainersupport.dll" Target="PrepareChainedPackages"/>
+    <ROW Action="AI_PrepareShortcutFlags" Type="1" Source="ShortcutFlags.dll" Target="PrepareActionData"/>
     <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH" Target="[AI_SETUPEXEPATH_ORIGINAL]"/>
     <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
     <ROW Action="AI_RemoveExternalUIStub" Type="1" Source="ExternalUICleaner.dll" Target="RemoveExternalUIStub"/>
@@ -356,6 +363,9 @@
     <ROW Action="AI_RollbackPrereq" Type="65" Source="Prereq.dll" Target="RollbackPrereq" WithoutSeq="true"/>
     <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
     <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
+    <ROW Action="AI_UnpinFromStartScreen" Type="1025" Source="ShortcutFlags.dll" Target="UnpinFromStartScreen" WithoutSeq="true"/>
+    <ROW Action="AI_UnpinFromTaskbar" Type="1025" Source="ShortcutFlags.dll" Target="UnpinFromTaskbar" WithoutSeq="true"/>
+    <ROW Action="AI_UnpinShortcuts" Type="1" Source="ShortcutFlags.dll" Target="UnpinShortcuts"/>
     <ROW Action="AI_VerifyPrePrereq" Type="1" Source="Prereq.dll" Target="VerifyPrePrereq"/>
     <ROW Action="AI_VerifyPrereq" Type="1" Source="Prereq.dll" Target="VerifyPrereq"/>
     <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="DefaultBuild:[ProgramFiles64Folder][Manufacturer]\[ProductName]"/>
@@ -364,6 +374,9 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiEmbeddedChainerComponent">
     <ROW MsiEmbeddedChainer="msichainer.exe" Condition="VersionMsi &gt;= &quot;4.05&quot;" CommandLine="[AI_CHAINER_CMD_LINE]" Source="msichainer.exe" Type="2"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiEnvComponent">
+    <ROW Environment="Path" Name="+-*Path" Value="[~];C:\Program Files (x86)\Nmap\" Component_="NMAP"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatCompsComponent">
     <ROW Feature_="MainFeature" Component_="APPDIR"/>
@@ -383,12 +396,15 @@
     <ROW Feature_="MainFeature" Component_="htm_close.tmpl"/>
     <ROW Feature_="MainFeature" Component_="account.ico"/>
     <ROW Feature_="MainFeature" Component_="resource.qrc"/>
-    <ROW Feature_="MainFeature" Component_="main_win.exe"/>
     <ROW Feature_="MainFeature" Component_="security_header_scanner.py"/>
     <ROW Feature_="MainFeature" Component_="config.ini"/>
-    <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
     <ROW Feature_="STRAWBERRYPERL64" Component_="STRAWBERRYPERL64"/>
     <ROW Feature_="NMAP" Component_="NMAP"/>
+    <ROW Feature_="MainFeature" Component_="main_win.exe"/>
+    <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
+    <ROW Name="app_logo.exe" SourcePath="..\..\src\resources\icons\app_logo.ico" Index="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
@@ -415,6 +431,9 @@
     <ROW Action="AI_VerifyPrereq" Sequence="1101"/>
     <ROW Action="AI_ConfigureChainer" Condition="(NOT SETUPEXEDIR) AND ((UILevel = 2) OR (UILevel = 3)) AND (NOT UPGRADINGPRODUCTCODE)" Sequence="6598"/>
     <ROW Action="AI_LaunchChainer" Condition="AI_PREREQ_CHAINER AND (NOT UPGRADINGPRODUCTCODE)" Sequence="6599"/>
+    <ROW Action="AI_PrepareShortcutFlags" Condition="(VersionNT &gt; 501) AND ((NOT Installed) OR (Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;)))" Sequence="4501"/>
+    <ROW Action="AI_PinShortcuts" Condition="(VersionNT &gt; 600) AND ((NOT Installed) OR (Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;)))" Sequence="6499"/>
+    <ROW Action="AI_UnpinShortcuts" Condition="(VersionNT &gt; 600) AND (REMOVE = &quot;ALL&quot;)" Sequence="3199"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
     <ROW Action="AI_PRESERVE_INSTALL_TYPE" Sequence="199"/>
@@ -490,7 +509,7 @@
     <ROW Registry="Windows" Root="-1" Key="Software\Microsoft\Windows" Name="\"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
-    <ROW Shortcut="NetworkScanner" Directory_="SHORTCUTDIR" Name="NETWOR~1|Network Scanner" Component_="main_win.exe" Target="[#main_win.exe]" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="NetworkScanner" Directory_="SHORTCUTDIR" Name="NETWOR~1|Network Scanner" Component_="main_win.exe" Target="[#main_win.exe]" Description="The Main Executable" Hotkey="0" Icon_="app_logo.exe" IconIndex="0" ShowCmd="3" WkDir="APPDIR" CustomFlags="1"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
     <ATTRIBUTE name="UsedTheme" value="classic"/>
@@ -500,11 +519,14 @@
     <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.PreReqComponent">
-    <ROW PrereqKey="NMAP" DisplayName="Nmap" VersionMin="7.95.0.0" SetupFileUrl="..\..\..\..\..\Downloads\Programs\nmap-7.95-setup.exe" Location="0" ExactSize="0" WinNTVersions="Windows 9x/ME/NT/2000/XP/Vista/Windows 7/Windows 8 x86/Windows 8.1 x86/Windows 10 x86" Operator="1" Options="fi=-l" TargetName="Nmap\nmap-7.95-setup.exe" Feature="NMAP"/>
-    <ROW PrereqKey="STRAWBERRYPERL64" DisplayName="Strawberry Perl (64-bit)" SetupFileUrl="files\prerequisites\strawberry-perl-5.38.2.2-64bit.msi" Location="0" ExactSize="0" WinNTVersions="Windows 9x/ME/NT/2000/XP/Vista/Windows 7/Windows 8 x86/Windows 8.1 x86/Windows 10 x86" Operator="1" Options="i-=lwB" TargetName="Strawberry Perl (64-bit)\strawberry-perl-5.38.2.2-64bit.msi" Feature="STRAWBERRYPERL64"/>
+    <ROW PrereqKey="NMAP" DisplayName="Nmap" VersionMin="7.95.0.0" SetupFileUrl="..\..\..\..\..\Downloads\Programs\nmap-7.95-setup.exe" Location="0" ExactSize="0" WinNTVersions="Windows 9x/ME/NT/2000/XP/Vista/Windows 7/Windows 8 x86/Windows 8.1 x86/Windows 10 x86" Operator="1" Options="f=-li" TargetName="Nmap\nmap-7.95-setup.exe" Feature="NMAP"/>
+    <ROW PrereqKey="STRAWBERRYPERL64" DisplayName="Strawberry Perl (64-bit)" SetupFileUrl="files\prerequisites\strawberry-perl-5.38.2.2-64bit.msi" Location="0" ExactSize="0" WinNTVersions="Windows 9x/ME/NT/2000/XP/Vista/Windows 7/Windows 8 x86/Windows 8.1 x86/Windows 10 x86" Operator="1" Options="-=lwB" TargetName="Strawberry Perl (64-bit)\strawberry-perl-5.38.2.2-64bit.msi" Feature="STRAWBERRYPERL64"/>
     <ATTRIBUTE name="PrereqsOrder" value="NMAP STRAWBERRYPERL64"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.PreReqSearchComponent">
+    <ROW SearchKey="ProdCode" Prereq="NMAP" SearchType="3" SearchString="{00000000-0000-0000-0000-000000000000}" Order="2" Property="PreReqSearch_1"/>
+    <ROW SearchKey="ProdCode_1" Prereq="STRAWBERRYPERL64" SearchType="3" SearchString="{8075BCC9-804A-1014-97A8-A0999374D9D1}" Order="1" Property="PreReqSearch_2"/>
+    <ROW SearchKey="ProdCode_2" Prereq="STRAWBERRYPERL64" SearchType="3" SearchString="{FAFB92A9-5A72-07A0-81D6-751F7EF75E63}" Order="2" Property="PreReqSearch_3"/>
     <ROW SearchKey="SystemFolderfile.dll" Prereq="NMAP" SearchType="0" SearchString="[SystemFolder]file.dll" VerMin="1.0" Order="1" Property="PreReqSearch"/>
   </COMPONENT>
 </DOCUMENT>

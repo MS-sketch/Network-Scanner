@@ -484,6 +484,7 @@
                     <property name="font">
                      <font>
                       <pointsize>12</pointsize>
+                      <bold>true</bold>
                      </font>
                     </property>
                     <property name="text">
@@ -498,6 +499,13 @@
                       <pointsize>11</pointsize>
                      </font>
                     </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color:rgba(0, 0, 0, 0);
+border:none;
+border-bottom:2px solid rgba(46, 82, 101, 200);
+color:rgba(0, 0, 0, 240);
+padding-bottom:7px;</string>
+                    </property>
                     <property name="inputMask">
                      <string/>
                     </property>
@@ -505,12 +513,47 @@
                      <string/>
                     </property>
                     <property name="placeholderText">
-                     <string>https://www.example.com</string>
+                     <string>  Website or Port</string>
                     </property>
                    </widget>
                   </item>
                   <item>
                    <widget class="QPushButton" name="clearWebAddress_btn">
+                    <property name="minimumSize">
+                     <size>
+                      <width>50</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QPushButton#clearWebAddress_btn {
+    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(33, 150, 243, 219), stop:1 rgba(156, 39, 176, 226));
+    color: rgba(255, 255, 255, 210);
+    border-radius: 5px;
+}
+
+QPushButton#clearWebAddress_btn:hover {
+    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(63, 81, 181, 219), stop:1 rgba(103, 58, 183, 226));
+}
+
+QPushButton#clearWebAddress_btn:pressed {
+    padding-left: 5px;
+    padding-top: 5px;
+    background-color: rgba(103, 58, 183, 255);
+}
+</string>
+                    </property>
                     <property name="text">
                      <string>Clear</string>
                     </property>
@@ -518,14 +561,43 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="startScan_btn">
+                    <property name="minimumSize">
+                     <size>
+                      <width>50</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="maximumSize">
                      <size>
                       <width>200</width>
-                      <height>16777215</height>
+                      <height>30</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <bold>true</bold>
+                     </font>
                     </property>
                     <property name="layoutDirection">
                      <enum>Qt::LayoutDirection::LeftToRight</enum>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QPushButton#startScan_btn {
+    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(33, 150, 243, 219), stop:1 rgba(156, 39, 176, 226));
+    color: rgba(255, 255, 255, 210);
+    border-radius: 5px;
+}
+
+QPushButton#startScan_btn:hover {
+    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(63, 81, 181, 219), stop:1 rgba(103, 58, 183, 226));
+}
+
+QPushButton#startScan_btn:pressed {
+    padding-left: 5px;
+    padding-top: 5px;
+    background-color: rgba(103, 58, 183, 255);
+}
+</string>
                     </property>
                     <property name="text">
                      <string>Go!</string>
@@ -545,24 +617,25 @@
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_7">
                   <item>
-                   <widget class="QLabel" name="label_3">
-                    <property name="font">
-                     <font>
-                      <pointsize>12</pointsize>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>Summary:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
                    <widget class="QStackedWidget" name="stackedWidget_4">
                     <property name="currentIndex">
                      <number>1</number>
                     </property>
                     <widget class="QWidget" name="page_3">
                      <layout class="QVBoxLayout" name="verticalLayout_8">
+                      <item>
+                       <widget class="QLabel" name="label_3">
+                        <property name="font">
+                         <font>
+                          <pointsize>12</pointsize>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>Summary:</string>
+                        </property>
+                       </widget>
+                      </item>
                       <item>
                        <widget class="QTextEdit" name="outputScanResult_textedit"/>
                       </item>
@@ -629,7 +702,30 @@ QPushButton#report_generate_btn:pressed {
                       </item>
                      </layout>
                     </widget>
-                    <widget class="QWidget" name="page_4"/>
+                    <widget class="QWidget" name="page_4">
+                     <layout class="QVBoxLayout" name="verticalLayout_13">
+                      <item>
+                       <widget class="QLabel" name="label_5">
+                        <property name="font">
+                         <font>
+                          <pointsize>18</pointsize>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>You Haven't Searched For Any Vulnerabilities. 
+Type A Website Or Port &amp; Click On Go To Get Started.</string>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignmentFlag::AlignCenter</set>
+                        </property>
+                        <property name="wordWrap">
+                         <bool>true</bool>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
                    </widget>
                   </item>
                  </layout>
@@ -818,6 +914,12 @@ QPushButton#report_generate_btn:pressed {
                   </item>
                   <item>
                    <widget class="QRadioButton" name="nmap_rad">
+                    <property name="font">
+                     <font>
+                      <pointsize>11</pointsize>
+                      <bold>true</bold>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>Nmap</string>
                     </property>
@@ -825,6 +927,12 @@ QPushButton#report_generate_btn:pressed {
                   </item>
                   <item>
                    <widget class="QRadioButton" name="nikto_rad">
+                    <property name="font">
+                     <font>
+                      <pointsize>11</pointsize>
+                      <bold>true</bold>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>Nikto</string>
                     </property>
@@ -832,6 +940,12 @@ QPushButton#report_generate_btn:pressed {
                   </item>
                   <item>
                    <widget class="QRadioButton" name="header_scan_rad">
+                    <property name="font">
+                     <font>
+                      <pointsize>11</pointsize>
+                      <bold>true</bold>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>Header Scan</string>
                     </property>
@@ -842,11 +956,42 @@ QPushButton#report_generate_btn:pressed {
                   </item>
                   <item>
                    <widget class="QPushButton" name="ok_btn">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>30</height>
+                     </size>
+                    </property>
                     <property name="maximumSize">
                      <size>
-                      <width>50</width>
+                      <width>70</width>
                       <height>16777215</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>12</pointsize>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QPushButton#ok_btn {
+    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(33, 150, 243, 219), stop:1 rgba(156, 39, 176, 226));
+    color: rgba(255, 255, 255, 210);
+    border-radius: 5px;
+}
+
+QPushButton#ok_btn:hover {
+    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(63, 81, 181, 219), stop:1 rgba(103, 58, 183, 226));
+}
+
+QPushButton#ok_btn:pressed {
+    padding-left: 5px;
+    padding-top: 5px;
+    background-color: rgba(103, 58, 183, 255);
+}
+
+</string>
                     </property>
                     <property name="text">
                      <string>OK</string>

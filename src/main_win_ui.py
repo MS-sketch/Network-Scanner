@@ -195,6 +195,7 @@ class Ui_MainWindow(object):
         self.label_2 = QtWidgets.QLabel(parent=self.frame)
         font = QtGui.QFont()
         font.setPointSize(12)
+        font.setBold(True)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.horizontalLayout_6.addWidget(self.label_2)
@@ -202,16 +203,62 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(11)
         self.website_address_inputbox.setFont(font)
+        self.website_address_inputbox.setStyleSheet("background-color:rgba(0, 0, 0, 0);\n"
+"border:none;\n"
+"border-bottom:2px solid rgba(46, 82, 101, 200);\n"
+"color:rgba(0, 0, 0, 240);\n"
+"padding-bottom:7px;")
         self.website_address_inputbox.setInputMask("")
         self.website_address_inputbox.setText("")
         self.website_address_inputbox.setObjectName("website_address_inputbox")
         self.horizontalLayout_6.addWidget(self.website_address_inputbox)
         self.clearWebAddress_btn = QtWidgets.QPushButton(parent=self.frame)
+        self.clearWebAddress_btn.setMinimumSize(QtCore.QSize(50, 0))
+        self.clearWebAddress_btn.setMaximumSize(QtCore.QSize(16777215, 30))
+        font = QtGui.QFont()
+        font.setBold(True)
+        self.clearWebAddress_btn.setFont(font)
+        self.clearWebAddress_btn.setStyleSheet("QPushButton#clearWebAddress_btn {\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(33, 150, 243, 219), stop:1 rgba(156, 39, 176, 226));\n"
+"    color: rgba(255, 255, 255, 210);\n"
+"    border-radius: 5px;\n"
+"}\n"
+"\n"
+"QPushButton#clearWebAddress_btn:hover {\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(63, 81, 181, 219), stop:1 rgba(103, 58, 183, 226));\n"
+"}\n"
+"\n"
+"QPushButton#clearWebAddress_btn:pressed {\n"
+"    padding-left: 5px;\n"
+"    padding-top: 5px;\n"
+"    background-color: rgba(103, 58, 183, 255);\n"
+"}\n"
+"")
         self.clearWebAddress_btn.setObjectName("clearWebAddress_btn")
         self.horizontalLayout_6.addWidget(self.clearWebAddress_btn)
         self.startScan_btn = QtWidgets.QPushButton(parent=self.frame)
-        self.startScan_btn.setMaximumSize(QtCore.QSize(200, 16777215))
+        self.startScan_btn.setMinimumSize(QtCore.QSize(50, 0))
+        self.startScan_btn.setMaximumSize(QtCore.QSize(200, 30))
+        font = QtGui.QFont()
+        font.setBold(True)
+        self.startScan_btn.setFont(font)
         self.startScan_btn.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
+        self.startScan_btn.setStyleSheet("QPushButton#startScan_btn {\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(33, 150, 243, 219), stop:1 rgba(156, 39, 176, 226));\n"
+"    color: rgba(255, 255, 255, 210);\n"
+"    border-radius: 5px;\n"
+"}\n"
+"\n"
+"QPushButton#startScan_btn:hover {\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(63, 81, 181, 219), stop:1 rgba(103, 58, 183, 226));\n"
+"}\n"
+"\n"
+"QPushButton#startScan_btn:pressed {\n"
+"    padding-left: 5px;\n"
+"    padding-top: 5px;\n"
+"    background-color: rgba(103, 58, 183, 255);\n"
+"}\n"
+"")
         self.startScan_btn.setObjectName("startScan_btn")
         self.horizontalLayout_6.addWidget(self.startScan_btn)
         self.verticalLayout_6.addWidget(self.frame)
@@ -221,18 +268,19 @@ class Ui_MainWindow(object):
         self.frame_2.setObjectName("frame_2")
         self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.frame_2)
         self.verticalLayout_7.setObjectName("verticalLayout_7")
-        self.label_3 = QtWidgets.QLabel(parent=self.frame_2)
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.label_3.setFont(font)
-        self.label_3.setObjectName("label_3")
-        self.verticalLayout_7.addWidget(self.label_3)
         self.stackedWidget_4 = QtWidgets.QStackedWidget(parent=self.frame_2)
         self.stackedWidget_4.setObjectName("stackedWidget_4")
         self.page_3 = QtWidgets.QWidget()
         self.page_3.setObjectName("page_3")
         self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.page_3)
         self.verticalLayout_8.setObjectName("verticalLayout_8")
+        self.label_3 = QtWidgets.QLabel(parent=self.page_3)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        self.label_3.setFont(font)
+        self.label_3.setObjectName("label_3")
+        self.verticalLayout_8.addWidget(self.label_3)
         self.outputScanResult_textedit = QtWidgets.QTextEdit(parent=self.page_3)
         self.outputScanResult_textedit.setObjectName("outputScanResult_textedit")
         self.verticalLayout_8.addWidget(self.outputScanResult_textedit)
@@ -272,6 +320,17 @@ class Ui_MainWindow(object):
         self.stackedWidget_4.addWidget(self.page_3)
         self.page_4 = QtWidgets.QWidget()
         self.page_4.setObjectName("page_4")
+        self.verticalLayout_13 = QtWidgets.QVBoxLayout(self.page_4)
+        self.verticalLayout_13.setObjectName("verticalLayout_13")
+        self.label_5 = QtWidgets.QLabel(parent=self.page_4)
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        font.setBold(True)
+        self.label_5.setFont(font)
+        self.label_5.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label_5.setWordWrap(True)
+        self.label_5.setObjectName("label_5")
+        self.verticalLayout_13.addWidget(self.label_5)
         self.stackedWidget_4.addWidget(self.page_4)
         self.verticalLayout_7.addWidget(self.stackedWidget_4)
         self.verticalLayout_6.addWidget(self.frame_2)
@@ -384,17 +443,51 @@ class Ui_MainWindow(object):
         self.label_4.setObjectName("label_4")
         self.verticalLayout_12.addWidget(self.label_4)
         self.nmap_rad = QtWidgets.QRadioButton(parent=self.frame_5)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(True)
+        self.nmap_rad.setFont(font)
         self.nmap_rad.setObjectName("nmap_rad")
         self.verticalLayout_12.addWidget(self.nmap_rad)
         self.nikto_rad = QtWidgets.QRadioButton(parent=self.frame_5)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(True)
+        self.nikto_rad.setFont(font)
         self.nikto_rad.setObjectName("nikto_rad")
         self.verticalLayout_12.addWidget(self.nikto_rad)
         self.header_scan_rad = QtWidgets.QRadioButton(parent=self.frame_5)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(True)
+        self.header_scan_rad.setFont(font)
         self.header_scan_rad.setChecked(True)
         self.header_scan_rad.setObjectName("header_scan_rad")
         self.verticalLayout_12.addWidget(self.header_scan_rad)
         self.ok_btn = QtWidgets.QPushButton(parent=self.frame_5)
-        self.ok_btn.setMaximumSize(QtCore.QSize(50, 16777215))
+        self.ok_btn.setMinimumSize(QtCore.QSize(0, 30))
+        self.ok_btn.setMaximumSize(QtCore.QSize(70, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        self.ok_btn.setFont(font)
+        self.ok_btn.setStyleSheet("QPushButton#ok_btn {\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(33, 150, 243, 219), stop:1 rgba(156, 39, 176, 226));\n"
+"    color: rgba(255, 255, 255, 210);\n"
+"    border-radius: 5px;\n"
+"}\n"
+"\n"
+"QPushButton#ok_btn:hover {\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(63, 81, 181, 219), stop:1 rgba(103, 58, 183, 226));\n"
+"}\n"
+"\n"
+"QPushButton#ok_btn:pressed {\n"
+"    padding-left: 5px;\n"
+"    padding-top: 5px;\n"
+"    background-color: rgba(103, 58, 183, 255);\n"
+"}\n"
+"\n"
+"")
         self.ok_btn.setObjectName("ok_btn")
         self.verticalLayout_12.addWidget(self.ok_btn)
         spacerItem6 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
@@ -628,11 +721,13 @@ class Ui_MainWindow(object):
         self.settings_btn_2.setText(_translate("MainWindow", " Settings"))
         self.greeting_label.setText(_translate("MainWindow", "Good [Morning/Afternoon/Evening]!"))
         self.label_2.setText(_translate("MainWindow", "Website:"))
-        self.website_address_inputbox.setPlaceholderText(_translate("MainWindow", "https://www.example.com"))
+        self.website_address_inputbox.setPlaceholderText(_translate("MainWindow", "  Website or Port"))
         self.clearWebAddress_btn.setText(_translate("MainWindow", "Clear"))
         self.startScan_btn.setText(_translate("MainWindow", "Go!"))
         self.label_3.setText(_translate("MainWindow", "Summary:"))
         self.report_generate_btn.setText(_translate("MainWindow", "Generate AI Report"))
+        self.label_5.setText(_translate("MainWindow", "You Haven\'t Searched For Any Vulnerabilities. \n"
+"Type A Website Or Port & Click On Go To Get Started."))
         self.MessageInput_2.setPlaceholderText(_translate("MainWindow", "Type a message..."))
         self.SendButton_2.setText(_translate("MainWindow", "Send"))
         self.label.setText(_translate("MainWindow", "Please Configure Your Scan Options"))

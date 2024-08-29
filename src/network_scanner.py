@@ -109,33 +109,63 @@ def run_nikto_scan(url):
     return total_output
 
 
-def run_nmap_scan(url):
-    # Initialize the Nmap port scanner
-    nm = nmap.PortScanner()
+def run_nmap_scan(url, port=None):
+    try:
+        # Initialize the Nmap port scanner
+        nm = nmap.PortScanner()
 
-    # Define the target IP address or hostname
-    target = url
+        # Define the target IP address or hostname
+        target = url
 
-    # Define the scan options (e.g., ports 22-443)
-    scan_options = '-p 22-443'
+        # If no specific port is provided, find open ports first
+        if not port:
+            # Run a basic scan to find open ports
+            nm.scan(target, arguments='-p 1-65535')
 
-    # Run the scan
-    nm.scan(target, arguments=scan_options)
+            # Initialize a list to store open ports
+            open_ports = []
 
-    # Initialize a variable to store the scan results
-    scan_results = ""
+            # Check if the scan found any hosts
+            if nm.all_hosts():
+                for host in nm.all_hosts():
+                    for proto in nm[host].all_protocols():
+                        lport = nm[host][proto].keys()
+                        for p in sorted(lport):
+                            if nm[host][proto][p]['state'] == 'open':
+                                open_ports.append(p)
 
-    # Store the results in the variable
-    for host in nm.all_hosts():
-        scan_results += f'Host : {host} ({nm[host].hostname()})\n'
-        scan_results += f'State : {nm[host].state()}\n'
-        for proto in nm[host].all_protocols():
-            scan_results += '----------\n'
-            scan_results += f'Protocol : {proto}\n'
+            # If open ports are found, use the first one; otherwise, return an error
+            if open_ports:
+                port = open_ports[0]
+            else:
+                return "No open ports found on the target."
 
-            lport = nm[host][proto].keys()
-            for port in sorted(lport):
-                scan_results += f'port : {port}\tstate : {nm[host][proto][port]["state"]}\n'
+        # Now, use the specific or found port to perform a more detailed scan
+        scan_options = f'-p {port}'
+        nm.scan(target, arguments=scan_options)
+
+        # Initialize a variable to store the scan results
+        scan_results = ""
+
+        # Check if the scan found any hosts
+        if nm.all_hosts():
+            for host in nm.all_hosts():
+                scan_results += f'Host : {host} ({nm[host].hostname()})\n'
+                scan_results += f'State : {nm[host].state()}\n'
+                for proto in nm[host].all_protocols():
+                    scan_results += '----------\n'
+                    scan_results += f'Protocol : {proto}\n'
+
+                    lport = nm[host][proto].keys()
+                    for p in sorted(lport):
+                        scan_results += f'port : {p}\tstate : {nm[host][proto][p]["state"]}\n'
+        else:
+            scan_results = "No hosts found."
+
+    except nmap.PortScannerError as e:
+        scan_results = f"Nmap scan failed: {str(e)}"
+    except Exception as e:
+        scan_results = f"An error occurred: {str(e)}"
 
     # Return the entire scan results as a single string
     return scan_results
