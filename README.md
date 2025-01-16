@@ -43,6 +43,10 @@ cd your-project-directory
 python main_win.py
 ```
 
+## Building The Application
+To build the application follow the steps
+1. Bulding For Windows
+
 ## Usage
 The Application has a simple UI consisting of the following buttons with their corresponding features.
 
