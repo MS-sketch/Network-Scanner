@@ -1,3 +1,5 @@
 namp
 PyQt6
 PySide6
+google-generativeai
+PyInstaller
