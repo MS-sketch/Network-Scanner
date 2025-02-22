@@ -58,4 +58,4 @@ The Application has a simple UI consisting of the following buttons with their c
 This project is licensed under the GNU Public License Version 3.
 
 ## Contact
-To make any requests regarding this project please contact sarkar.mainakh@rediffmail.com
+To make any requests regarding this project please contact details at [My Profile](https://github.com/MS-sketch/)
