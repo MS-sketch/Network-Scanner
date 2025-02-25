@@ -17,7 +17,7 @@ Instructions on how to install and set up your project. For example:
 git clone https://github.com/MS-sketch/Network-Scanner.git
 
 # Navigate to the project directory
-cd projectname
+cd Network-Scanner
 
 # Install dependencies
 pip install -r requirements.txt
